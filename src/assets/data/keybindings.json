@@ -1,0 +1,8 @@
+{
+  "keyBindings": [
+    { "key": "F1", "dataset": 0 },
+    { "key": "F2", "dataset": 1 },
+    { "key": "F3", "dataset": 2 },
+    { "key": "F4", "dataset": 3 }
+  ]
+}

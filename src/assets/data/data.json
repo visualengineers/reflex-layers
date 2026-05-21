@@ -1,0 +1,120 @@
+{
+  "textureResources": [
+    {
+      "id": 0,
+      "name": "Calibration",
+      "isActive": false,
+      "type": 0,
+      "folder": "textures/Calibration",
+      "layers": [
+        { "id": 0, "file": "Calib_00.png", "description": "Ebene 1" },
+        { "id": 1, "file": "Calib_01.png", "description": "Ebene 2"  },
+        { "id": 2, "file": "Calib_02.png", "description": "Ebene 3"  },
+        { "id": 3, "file": "Calib_03.png", "description": "Ebene 4"  },
+        { "id": 4, "file": "Calib_04.png", "description": "Ebene 5"  },
+        { "id": 5, "file": "Calib_05.png", "description": "Ebene 6"  },
+        { "id": 6, "file": "Calib_06.png", "description": "Ebene 7"  }
+      ],
+      "config": {
+        "interaction": 1,
+        "interpolateColor": true,
+        "showLenseUI": true,
+        "showLayerUI": false,
+        "defaultLensMaskIdx": 1,
+        "lensBorderColor": "#ffff00",
+        "lensSize": 1.0,
+        "lensOffsetX": 0.0,
+        "lensOffsetY": 0.0,
+        "maxNumLenses": 1
+      }
+    },
+    {
+      "id": 1,
+      "isActive": true,
+      "name": "Calibration - 15",
+      "type": 0,
+      "folder": "textures/Calibration2",
+      "layers": [
+        { "id": 0, "file": "001.png", "description": "Ebene 1" },
+        { "id": 1, "file": "002.png", "description": "Ebene 2"  },
+        { "id": 2, "file": "003.png", "description": "Ebene 3"  },
+        { "id": 3, "file": "004.png", "description": "Ebene 4"  },
+        { "id": 4, "file": "005.png", "description": "Ebene 5"  },
+        { "id": 5, "file": "006.png", "description": "Ebene 6"  },
+        { "id": 6, "file": "007.png", "description": "Ebene 7"  },
+        { "id": 7, "file": "008.png", "description": "Ebene 8"  },
+        { "id": 8, "file": "009.png", "description": "Ebene 9"  },
+        { "id": 9, "file": "010.png", "description": "Ebene 10"  },
+        { "id": 10, "file": "011.png", "description": "Ebene 11" },
+        { "id": 11, "file": "012.png", "description": "Ebene 12"  },
+        { "id": 12, "file": "013.png", "description": "Ebene 13"  },
+        { "id": 13, "file": "014.png", "description": "Ebene 14"  },
+        { "id": 14, "file": "015.png", "description": "Ebene 15"  }
+      ],
+      "config": {
+        "interaction": 2,
+        "interpolateColor": false,
+        "showLenseUI": false,
+        "showLayerUI": true,
+        "defaultLensMaskIdx": 1,
+        "lensBorderColor": "#ff0000",
+        "lensSize": 1.0,
+        "lensOffsetX": 0.0,
+        "lensOffsetY": 0.0,
+        "maxNumLenses": 2
+      }
+    },
+    {
+      "id": 2,
+      "isActive": true,
+      "name": "Calibration - 15 (KTX Array)",
+      "type": 1,
+      "numLayers": 15,
+      "folder": "textures/Calibration2_ktx",
+      "layers": [
+        { "id": 0, "file": "calibration2.ktx2" }
+      ],
+      "config": {
+        "interaction": 2,
+        "interpolateColor": false,
+        "showLenseUI": false,
+        "showLayerUI": true,
+        "defaultLensMaskIdx": 1,
+        "lensBorderColor": "#ff0000",
+        "lensSize": 1.0,
+        "lensOffsetX": 0.0,
+        "lensOffsetY": 0.0,
+        "maxNumLenses": 2
+      }
+    },
+    {
+      "id": 3,
+      "isActive": true,
+      "name": "Depth of Field (LNdW)",
+      "type": 0,
+      "folder": "textures/DoF_LNdW",
+      "layers": [
+        { "id": 0, "file": "01.jpg" },
+        { "id": 1, "file": "02.jpg" },
+        { "id": 2, "file": "03.jpg" },
+        { "id": 3, "file": "04.jpg" },
+        { "id": 4, "file": "05.jpg" },
+        { "id": 5, "file": "06.jpg" },
+        { "id": 6, "file": "07.jpg" }
+      ],
+      "config": {
+        "interaction": 0,
+        "interpolateColor": false,
+        "showLenseUI": false,
+        "showLayerUI": true,
+        "defaultLensMaskIdx": 1,
+        "lensBorderColor": "#ff0000",
+        "lensSize": 1.0,
+        "lensOffsetX": 0.0,
+        "lensOffsetY": 0.0,
+        "maxNumLenses": 2
+      }
+    }
+
+  ]
+}
