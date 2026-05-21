@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input, OnInit } from '@angular/core';
 import { DefaultLensProperties, LensProperties } from 'src/shared/interface/lens-properties';
 
@@ -6,9 +6,7 @@ import { DefaultLensProperties, LensProperties } from 'src/shared/interface/lens
     selector: 'app-lens',
     templateUrl: './lens.component.html',
     styleUrls: ['./lens.component.scss'],
-    imports: [
-        CommonModule
-    ]
+    imports: []
 })
 export class LensComponent implements OnInit {
 

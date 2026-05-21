@@ -1,17 +1,26 @@
-<div class="depth-range" *ngIf="(IdleService.ShowIdleScreen | async) !== true && (SettingsService.CurrentSettings | async)?.defaultLayerSettings?.showLayerUI && (SettingsService.CurrentSettings | async)?.defaultLayerSettings?.interaction != 0">
+@if ((IdleService.ShowIdleScreen | async) !== true && (SettingsService.CurrentSettings | async)?.defaultLayerSettings?.showLayerUI && (SettingsService.CurrentSettings | async)?.defaultLayerSettings?.interaction != 0) {
+  <div class="depth-range">
     <div class="layer">
-        <!-- <div class="zero-layer" [style.height]="LayerSize.toFixed(2) + '%'"></div> -->
-        <div class="current-layer" [style.height]="LayerSize.toFixed(2) + '%'" [style.transform]="CurrentTransform" [style.border-radius]="borderRadius" *ngIf="NumLayers < 20"></div>
-        <div class="layer-borders" *ngIf="NumLayers < 20">
-            <div *ngFor="let l of Layers; index as idx" class="layer-border">
-                <!-- <div class="layer-index">{{idx > 0 ? idx.toString() : ''}}</div> -->
+      <!-- <div class="zero-layer" [style.height]="LayerSize.toFixed(2) + '%'"></div> -->
+      @if (NumLayers < 20) {
+        <div class="current-layer" [style.height]="LayerSize.toFixed(2) + '%'" [style.transform]="CurrentTransform" [style.border-radius]="borderRadius"></div>
+      }
+      @if (NumLayers < 20) {
+        <div class="layer-borders">
+          @for (l of Layers; track l; let idx = $index) {
+            <div class="layer-border">
+              <!-- <div class="layer-index">{{idx > 0 ? idx.toString() : ''}}</div> -->
             </div>
+          }
         </div>
+      }
     </div>
-
-    <div *ngFor="let p of PointPositions" class="point-position"
+    @for (p of PointPositions; track p) {
+      <div class="point-position"
         [style.transform]="'translateY('+p+'%)'"
-    >
+        >
         <div class="point-visualization"></div>
-    </div>
-</div>
+      </div>
+    }
+  </div>
+}
