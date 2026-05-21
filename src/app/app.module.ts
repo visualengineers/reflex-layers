@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { DepthImageService } from 'src/services/depth-image.service';
@@ -23,29 +23,23 @@ import { IdleModeService } from 'src/services/idle-mode-service';
 import { LensComponent } from './lens/lens.component';
 import { DiagnosticsService } from 'src/services/diagnostics.service';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    DepthImageComponent, TextureBlendingComponent, SettingsComponent, DepthLayerVisualizationComponent, LensVisualizationComponent, IdleScreenComponent, LensComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    FormsModule,
-    AppRoutingModule
-  ],
-  providers: [
-    { provide: TextureRepositoryService },
-    { provide: DepthImageService },
-    { provide: LayerLogicServiceBase, useClass: LayerLogicService },
-    { provide: InteractionService },
-    { provide: SettingsService },
-    { provide: PointCloudImageService },
-    { provide: DepthImageServiceFacade },
-    { provide: ElectronIpcService },
-    { provide: IdleModeService },
-    { provide: DiagnosticsService}
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        DepthImageComponent, TextureBlendingComponent, SettingsComponent, DepthLayerVisualizationComponent, LensVisualizationComponent, IdleScreenComponent, LensComponent
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        FormsModule,
+        AppRoutingModule], providers: [
+        { provide: TextureRepositoryService },
+        { provide: DepthImageService },
+        { provide: LayerLogicServiceBase, useClass: LayerLogicService },
+        { provide: InteractionService },
+        { provide: SettingsService },
+        { provide: PointCloudImageService },
+        { provide: DepthImageServiceFacade },
+        { provide: ElectronIpcService },
+        { provide: IdleModeService },
+        { provide: DiagnosticsService },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }
