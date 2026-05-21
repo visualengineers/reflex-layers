@@ -15,7 +15,7 @@ import { DepthInformation } from 'src/shared/model/depth-information';
 import { hexToRgb } from 'src/shared/util/util';
 import * as THREE from 'three';
 import { DataTexture, PixelFormat, RedFormat, Texture, Vector2 } from 'three';
-import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader';
+import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader.js';
 import log from 'electron-log';
 import { AppSettings } from 'src/shared/interface/app-settings';
 

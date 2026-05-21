@@ -19,7 +19,7 @@
     "buildVersion": "0.9.9",
     "files": [
       "main.js",
-      "dist/**/*"
+      "dist/browser/**/*"
     ],
     "asar": false,
     "directories": {
