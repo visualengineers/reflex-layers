@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Observable, Subject, filter } from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { DepthInformation } from 'src/shared/model/depth-information';
 import { TouchPoint } from 'src/shared/model/touch-point';
 import { scale } from 'src/shared/util/util';
@@ -8,8 +8,9 @@ import { InteractionService } from './interaction.service';
 import { TextureRepositoryService } from './texture-repository.service';
 
 @Injectable()
-export class LayerLogicService implements LayerLogicServiceBase {
-  // private _touchPointSubscription: Subscription;
+export class LayerLogicService implements LayerLogicServiceBase, OnDestroy {
+  private _touchPointSubscription?: Subscription;
+  private _textureSubscription?: Subscription;
 
   private _currentLayer$: Subject<Number> = new Subject<Number>();
   private _currentDeepestPoint$: Subject<TouchPoint[]> = new Subject<TouchPoint[]>();
@@ -34,7 +35,7 @@ export class LayerLogicService implements LayerLogicServiceBase {
 
     this._interactionService.startStreaming();
 
-    this._interactionService.Data.subscribe(points => {
+    this._touchPointSubscription = this._interactionService.Data.subscribe(points => {
       if (!(Array.isArray(points) && points.length > 0)) {
         this._depthInformation$.next([]);
         this._currentDeepestPoint$.next([]);
@@ -62,7 +63,7 @@ export class LayerLogicService implements LayerLogicServiceBase {
       this._depthInformation$.next(this._depthInformation.reverse());
     });
 
-    this._textureService.NumLayers.subscribe((updatedNumber) => {
+    this._textureSubscription = this._textureService.NumLayers.subscribe((updatedNumber) => {
         this._step = 1.0 / updatedNumber;
         this._numLayers = updatedNumber;
     });
@@ -84,6 +85,12 @@ export class LayerLogicService implements LayerLogicServiceBase {
 
   public getBottomReachedTransition(): Observable<boolean> {
     return this._transitionToOrFromBottom$;
+  }
+
+  public ngOnDestroy(): void {
+    this._interactionService.stopStreaming();
+    this._touchPointSubscription?.unsubscribe();
+    this._textureSubscription?.unsubscribe();
   }
 
   private processPoint(pointIdx: number): void {   
