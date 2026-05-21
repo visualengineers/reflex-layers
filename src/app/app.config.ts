@@ -3,7 +3,7 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { DepthImageServiceFacade } from 'src/services/depth-image.facade.service';
 import { DepthImageService } from 'src/services/depth-image.service';
 import { DiagnosticsService } from 'src/services/diagnostics.service';
@@ -47,7 +47,6 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection(),
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    provideClientHydration(withEventReplay()),
     provideHttpClient(withInterceptorsFromDi())
   ]
 };
