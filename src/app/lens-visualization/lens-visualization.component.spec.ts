@@ -8,8 +8,8 @@ describe('LensVisualizationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LensVisualizationComponent ]
-    })
+    declarations: [LensVisualizationComponent]
+})
     .compileComponents();
   });
 

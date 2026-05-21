@@ -8,8 +8,8 @@ describe('DepthLayerVisualizationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DepthLayerVisualizationComponent ]
-    })
+    declarations: [DepthLayerVisualizationComponent]
+})
     .compileComponents();
   });
 

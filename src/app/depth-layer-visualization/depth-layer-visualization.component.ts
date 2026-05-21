@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IdleModeService } from 'src/services/idle-mode-service';
@@ -10,7 +11,11 @@ import { DepthInformation } from 'src/shared/model/depth-information';
 @Component({
   selector: 'app-depth-layer-visualization',
   templateUrl: './depth-layer-visualization.component.html',
-  styleUrls: ['./depth-layer-visualization.component.scss']
+  styleUrls: ['./depth-layer-visualization.component.scss'],
+  imports: [
+    CommonModule,
+  ],
+  standalone: true
 })
 export class DepthLayerVisualizationComponent implements OnInit, OnDestroy {
 

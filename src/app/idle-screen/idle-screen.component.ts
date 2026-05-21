@@ -1,18 +1,21 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import log from 'electron-log';
-import { Subscription, combineLatest, concatMap, distinctUntilChanged } from 'rxjs';
+import { Subscription, concatMap } from 'rxjs';
 import { IdleModeService } from 'src/services/idle-mode-service';
-import { InteractionService } from 'src/services/interaction.service';
 import { SettingsService } from 'src/services/settings.service';
 import { TextureRepositoryService } from 'src/services/texture-repository.service';
 import { InteractionMetaphor } from 'src/shared/enum/interaction-metaphor';
-import { TextureResourceType } from 'src/shared/enum/texture-resource-type';
 import { TextureLayer } from 'src/shared/interface/texture-layer';
 
 @Component({
   selector: 'app-idle-screen',
   templateUrl: './idle-screen.component.html',
-  styleUrls: ['./idle-screen.component.scss']
+  styleUrls: ['./idle-screen.component.scss'],
+  imports: [
+    CommonModule
+  ],
+  standalone: true
 })
 export class IdleScreenComponent implements OnInit, OnDestroy {
 

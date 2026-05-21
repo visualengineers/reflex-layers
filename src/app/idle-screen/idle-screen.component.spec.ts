@@ -8,8 +8,8 @@ describe('IdleScreenComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IdleScreenComponent ]
-    })
+    declarations: [IdleScreenComponent]
+})
     .compileComponents();
   });
 

@@ -1,4 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import log from 'electron-log';
 import { combineLatest, concatMap, Subscription } from 'rxjs';
 import { DepthImageService } from 'src/services/depth-image.service';
@@ -16,7 +18,12 @@ import { hexToRgb, RGBColor } from 'src/shared/util/util';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+  styleUrls: ['./settings.component.scss'],
+  imports: [
+    CommonModule,
+    FormsModule
+  ],
+  standalone: true
 })
 export class SettingsComponent implements OnInit, OnDestroy {
 

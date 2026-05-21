@@ -8,8 +8,8 @@ describe('TextureBlendingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TextureBlendingComponent ]
-    })
+    declarations: [TextureBlendingComponent]
+})
     .compileComponents();
   });
 

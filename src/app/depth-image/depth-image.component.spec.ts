@@ -8,8 +8,8 @@ describe('DepthImageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DepthImageComponent ]
-    })
+    declarations: [DepthImageComponent]
+})
     .compileComponents();
   });
 
