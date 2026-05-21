@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { appTestProviders } from 'src/testing/test-providers';
 
 import { TextureBlendingComponent } from './texture-blending.component';
 
@@ -8,8 +9,9 @@ describe('TextureBlendingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    declarations: [TextureBlendingComponent]
-})
+      imports: [TextureBlendingComponent],
+      providers: appTestProviders
+    })
     .compileComponents();
   });
 

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { appTestProviders } from 'src/testing/test-providers';
 
 import { LensComponent } from './lens.component';
 
@@ -8,8 +9,9 @@ describe('LensComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    declarations: [LensComponent]
-})
+      imports: [LensComponent],
+      providers: appTestProviders
+    })
     .compileComponents();
   });
 

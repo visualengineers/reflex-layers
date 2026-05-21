@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { appTestProviders } from 'src/testing/test-providers';
 
 import { DepthLayerVisualizationComponent } from './depth-layer-visualization.component';
 
@@ -8,8 +9,9 @@ describe('DepthLayerVisualizationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    declarations: [DepthLayerVisualizationComponent]
-})
+      imports: [DepthLayerVisualizationComponent],
+      providers: appTestProviders
+    })
     .compileComponents();
   });
 

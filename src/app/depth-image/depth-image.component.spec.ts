@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { appTestProviders } from 'src/testing/test-providers';
 
 import { DepthImageComponent } from './depth-image.component';
 
@@ -8,8 +9,9 @@ describe('DepthImageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    declarations: [DepthImageComponent]
-})
+      imports: [DepthImageComponent],
+      providers: appTestProviders
+    })
     .compileComponents();
   });
 
