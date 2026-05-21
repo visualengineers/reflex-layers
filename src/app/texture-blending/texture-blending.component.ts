@@ -29,7 +29,7 @@ export class TextureBlendingComponent implements OnInit, AfterViewInit, OnDestro
   @ViewChild('renderContainer')
   public container?: ElementRef;
 
-  @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize', [])
   onResize() {
     this._screenHeight = window.innerHeight;
     this._screenWidth = window.innerWidth;
