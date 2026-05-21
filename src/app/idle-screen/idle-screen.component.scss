@@ -1,0 +1,254 @@
+@import "styles";
+
+:host {
+    position: fixed;
+    top:0;
+    left:0;
+}
+
+.idle-graphic {
+    &__container {
+        position:fixed;
+        width: 100vw;
+        height: 100vh;
+
+        background-size: 100% 100%;
+
+        opacity: 0;
+
+        animation-name: fadeIn_logo;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: 1;
+        animation-duration: $animation-duration;
+        animation-delay: 7s;
+        animation-fill-mode: forwards;
+    }
+
+    &__background {
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+        clip-path: ellipse(200px 200px at 50vw 50vh);
+    }
+
+    &__image {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+
+        background-size:100vw 100vh;
+
+        &.with-gradient {
+            @include gradient-mask;
+        } 
+    }
+
+    &__lens-border {
+        border: 3px solid #fff;
+        border-radius: 100%;
+        display: block;
+        width: 400px;
+        height: 400px;
+        position: fixed;
+        top: 50vh;
+        left: 50vw;
+        transform: translate(-200px, -200px);
+
+        animation-name: fadeInOut_lens;
+        @include idle-animation;
+    }
+
+    &__hand {
+        position: fixed;
+        width: 150px;
+        height: 150px;
+        top: 50vh;
+        left: 50vw;
+
+        animation-name: fadeInOut_hand;
+        @include idle-animation;
+    }
+
+    &__text {
+        position: fixed;
+        width: 942px;
+        height: 110px;
+        bottom: 7.5vh;
+        left: 50vw;
+        transform: translateX(-471px);        
+
+        background-image: url('../../assets/idle/IdleAnimation_Text.png');
+        background-position: center center;
+        background-repeat: no-repeat;
+
+        -webkit-mask-image: url('../../assets/idle/IdleAnimation_Text_OpacityMask.png');
+        mask-image: url('../../assets/idle/IdleAnimation_Text_OpacityMask.png');
+
+        -webkit-mask-size: contain;
+        mask-size: contain;     
+        
+        animation-name: fadeInOut_text;
+        @include idle-animation;
+    }
+}
+
+@keyframes fadeIn_logo {
+    0% { 
+        opacity: 0;
+     }
+    5% { 
+        opacity: 1;        
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInOut_hand {
+    0% { 
+        opacity: 0;
+        transform: translate(150px,100px) scale(1.0);
+     }
+    5% { 
+        opacity: 1;        
+    }
+    12% {
+        transform: translate(50px,50px) scale(1.0);
+    }
+    45% { 
+        opacity: 1; 
+        transform: translate(25px, 25px) scale(0.85);
+    }
+    62.5% { 
+        opacity: 1; 
+        transform: translate(50px, 50px) scale(1.0);
+    }
+    70% {
+        opacity: 0;
+        transform: translate(150px,100px) scale(1.0);
+    }
+    100% { opacity: 0; }
+}
+
+@keyframes fadeInOut_layer1 {
+    0% { opacity: 0; }
+    10% { opacity: 0 }
+    15% { opacity: 1; }
+    20% { opacity: 0; }     
+    60% { opacity: 1; }
+    65% { opacity: 0; }   
+    100% { opacity: 0; }
+}
+
+@keyframes fadeInOut_layer2 {
+    0% { opacity: 0; }
+    10% { opacity: 0 }
+    20% { opacity: 1; }
+    25% { opacity: 1; }      
+    57.5% { opacity: 1; }
+    62.5% { opacity: 0; }   
+    100% { opacity: 0; }
+}
+
+@keyframes fadeInOut_layer3 {
+    0% { opacity: 0; }
+    15% { opacity: 0 }
+    25% { opacity: 1; }
+    30% { opacity: 1; }     
+    55% { opacity: 1; }
+    60% { opacity: 0; }  
+    100% { opacity: 0; }
+}
+
+@keyframes fadeInOut_layer4 {
+    0% { opacity: 0; }
+    20% { opacity: 0 }
+    30% { opacity: 1; }
+    35% { opacity: 1; }     
+    52.5% { opacity: 1; }
+    57.5% { opacity: 0; }    
+    100% { opacity: 0; }
+}
+
+@keyframes fadeInOut_layer5 {
+    0% { opacity: 0; }
+    25% { opacity: 0 }
+    35% { opacity: 1; }
+    40% { opacity: 1; }     
+    50% { opacity: 1; }
+    55% { opacity: 0; }    
+    100% { opacity: 0; }
+}
+
+@keyframes fadeInOut_layer6 {
+    0% { opacity: 0; }
+    30% { opacity: 0 }
+    40% { opacity: 1; }
+    45% { opacity: 1; } 
+    47.5% { opacity: 1; }
+    52.5% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+@keyframes fadeInOut_layer7 {
+    0% { opacity: 0; }
+    35% { opacity: 0 }
+    45% { opacity: 1; }
+    50% { opacity: 0; }    
+    100% { opacity: 0; }
+}
+
+@keyframes fadeInOut_lens {
+    0% { opacity: 0; }
+    10% { opacity: 0 }
+    15% { opacity: 1; } 
+    62.5% { opacity: 1; }
+    65% { opacity: 0; }   
+    100% { opacity: 0; }
+}
+
+@keyframes fadeInOut_text {
+    0% { opacity: 0; }
+    5% { opacity: 1; } 
+    62.5% { opacity: 1; }
+    70% { opacity: 0; }   
+    100% { opacity: 0; }
+}
+
+.layer0 {
+    animation-name: fadeInOut_layer1;
+    @include idle-animation;
+}
+
+.layer1 {
+    animation-name: fadeInOut_layer2;
+    @include idle-animation;
+}
+
+.layer2 {
+    animation-name: fadeInOut_layer3;
+    @include idle-animation;
+}
+
+.layer3 {
+    animation-name: fadeInOut_layer4;
+    @include idle-animation;
+}
+
+.layer4 {
+    animation-name: fadeInOut_layer5;
+    @include idle-animation;
+}
+
+.layer5 {
+    animation-name: fadeInOut_layer6;
+    @include idle-animation;
+}
+
+.layer6 {
+    animation-name: fadeInOut_layer7;
+    @include idle-animation;
+}

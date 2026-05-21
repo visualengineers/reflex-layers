@@ -1,0 +1,244 @@
+<div class="settings" *ngIf="!settings.hideSettingsPanel">
+    <input title="toggleSettings" name="navi-toggle" [(ngModel)]="isPanelExpanded" type="checkbox" class="settings__checkbox" id="navi-toggle" />
+    <label for="navi-toggle" class="settings__button-toggle">
+      <span class="settings__icon">&nbsp;</span>
+    </label>
+    <div class="settings__background">&nbsp;</div>
+    <div class="settings__container">
+      <div class="settings__heading">
+        Settings
+        <div class="tooltip">
+          <div [ngSwitch]="depthImageConnectionState" *ngIf="selectedMode == '0'">
+            <div class="settings__connection-status connected" *ngSwitchCase="0">&nbsp;</div>
+            <div class="settings__connection-status connecting" *ngSwitchCase="1">&nbsp;</div>
+            <div class="settings__connection-status disconnected" *ngSwitchCase="2">&nbsp;</div>
+            <div class="settings__connection-status error" *ngSwitchCase="3">&nbsp;</div>
+            <div class="settings__connection-status" *ngSwitchDefault>&nbsp;</div>
+          </div>
+          <span class="tooltiptext">Connection State for depth image</span>
+        </div>
+        <div class="tooltip">
+          <div [ngSwitch]="interactionConnectionState" *ngIf="selectedMode != '0'">
+            <div class="settings__connection-status connected" *ngSwitchCase="0">&nbsp;</div>
+            <div class="settings__connection-status connecting" *ngSwitchCase="1">&nbsp;</div>
+            <div class="settings__connection-status disconnected" *ngSwitchCase="2">&nbsp;</div>
+            <div class="settings__connection-status error" *ngSwitchCase="3">&nbsp;</div>
+            <div class="settings__connection-status" *ngSwitchDefault>&nbsp;</div>
+          </div>
+          <span class="tooltiptext">Connection State for touch points</span>
+        </div>
+      </div>
+      <div class="settings__group">
+        <div class="settings__item">
+          <div class="tooltip">
+            <label for="selectTexture">Texture</label>
+            <span class="tooltiptext">Select Visualization</span>
+          </div>
+          <div class="dropdown">
+
+            <label for="touch">
+              <span class="dropdown__title">{{selectedResource?.name ?? ''}}</span>
+            </label>
+            <input type="checkbox" id="touch" class="dropdown__check" [(ngModel)]="isTextureSelected">
+
+            <ul class="dropdown__slide">
+              <li class="dropdown__item" *ngFor="let texture of textures; let i = index">
+                <a (click)="updateSelectedTexture(texture.id)">{{ texture.name }}</a></li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="settings__texture--list" *ngIf="selectedResource?.type === 0">
+          <div *ngFor="let layer of selectedResource?.layers" class="settings__texture--preview-item">
+            <img src="assets/{{selectedResource?.folder}}/{{layer.file}}" alt="{{layer.id}}:{{layer.file}}"/>
+            <div class="settings__texture-preview-large">
+              <img src="assets/{{selectedResource?.folder}}/{{layer.file}}" alt="{{layer.id}}:{{layer.file}}" [alt]="layer.description ?? ''"/>
+              <div class="settings__texture-preview-large--description" *ngIf="layer?.description ?? '' !== ''">{{layer.description}}</div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="settings__item" *ngIf="selectedMode == '0'">
+          <div class="tooltip">
+            <label for="toggleStreamNative">Stream Sensor Depth</label>
+            <span class="tooltiptext">Decide whether pixel blending should be based on the native depth image of the sensor (<em>on</em>) or based on the point cloud received form the server (<em>off</em>)</span>
+          </div>
+          <input [(ngModel)]="settings.streamNativeDepthImage" (ngModelChange)="updateSettings()" type="checkbox" name="toggleStreamNative" id="toggleStreamNative">
+        </div>
+
+        <div class="settings__item" *ngIf="selectedMode == '0'">
+          <div class="tooltip">
+            <label for="toggleShowDepth">Show Depth</label>
+            <span class="tooltiptext">Show greyscale depth image (<em>on</em>), instead of selected image content (<em>off</em>)</span>
+          </div>
+          <input [(ngModel)]="settings.showDepthImage" (ngModelChange)="updateSettings()" type="checkbox" name="toggleShowDepth" id="toggleShowDepth">
+        </div>
+
+        <div class="settings__item" *ngIf="selectedMode == '0'">
+          <div class="tooltip">
+            <label for="toggleInterpolateColor">InterpolateColor</label>
+            <span class="tooltiptext">Use raw depth image (<em>off</em>) or interpolate depth values for smoother transitions in depth (<em>on</em>)</span>
+          </div>
+          <input [(ngModel)]="settings.defaultLayerSettings.interpolateColor" (ngModelChange)="updateSettings()" type="checkbox" name="toggleInterpolateColor" id="toggleInterpolateColor">
+        </div>
+
+        <div class="settings__item" *ngIf="selectedMode == '0'">
+          <div class="tooltip">
+            <label for="toggleOverrideDepth">Override Depth</label>
+            <span class="tooltiptext"><em>For debugging purposes:</em> Manually control depth value to check if all images are loaded correctly / layers are mapped correctly</span>
+          </div>
+          <input [(ngModel)]="settings.doOverrideDepth" (ngModelChange)="updateSettings()" type="checkbox" name="toggleOverrideDepth" id="toggleOverrideDepth">
+        </div>
+
+        <div class="settings__item" *ngIf="settings.doOverrideDepth && selectedMode == '0'">
+          <div class="tooltip">
+            <label for="rangeOverrideDepth">Depth Value</label>
+            <span class="tooltiptext">Adjust simulated depth</span>
+          </div>
+          <input  min="0" max="1" step="0.01"
+            [(ngModel)]="settings.depthOverrideValue" (ngModelChange)="updateSettings()"
+            type="range" name="rangeOverrideDepth" id="rangeOverrideDepth">
+        </div>
+
+        <div class="settings__item" *ngIf="selectedMode == '0'">
+          <div class="tooltip">
+            <label for="rangeMinDepth">Min Depth Value</label>
+            <span class="tooltiptext">depth value mapped maximum deformation (deepest layer)</span>
+          </div>
+          <input  min="0" max="settings.maxDepth" step="0.01"
+            [(ngModel)]="settings.minDepth" (ngModelChange)="updateSettings()"
+            type="range" name="rangeMinDepth" id="rangeMinDepth">
+        </div>
+
+        <div class="settings__item" *ngIf="selectedMode == '0'">
+          <div class="tooltip">
+            <label for="rangeMaxDepth">Zero Depth Value</label>
+            <span class="tooltiptext">depth value mapped minimal deformation (zero plane)</span>
+          </div>
+          <input  min="settings.minDepth" max="1.0" step="0.01"
+            [(ngModel)]="settings.maxDepth" (ngModelChange)="updateSettings()"
+            type="range" name="rangeMaxDepth" id="rangeMaxDepth">
+        </div>
+
+        <div class="settings__item" *ngIf="selectedMode == '0'">
+          <div class="tooltip">
+            <label for="toggleApplyCalibration">Apply Calibration</label>
+            <span class="tooltiptext">Transform depth image based on calibration used for extremum computation (<em>on</em>) or simply stretch depth image to viewport (<em>off</em>)</span>
+          </div>
+          <input [(ngModel)]="settings.defaultLayerSettings.applyCalibration" (ngModelChange)="updateSettings()" type="checkbox" name="toggleApplyCalibration" id="toggleApplyCalibration">
+        </div>
+
+        <div class="settings__item">
+          <div class="tooltip">
+            <label for="selectMode">Interaction Mode</label>
+            <span class="tooltiptext">Choose the layers navigation method: pixel-blending based on the depth image, magic lenses at extremums, or global navigation through layers</span>
+          </div>
+
+          <div class="dropdown">
+
+            <label for="selectMode">
+              <span class="dropdown__title">{{interactionModes[settings.defaultLayerSettings.interaction]}}</span>
+            </label>
+            <input type="checkbox" id="selectMode" class="dropdown__check" [(ngModel)]="isModeSelected">
+
+            <ul class="dropdown__slide">
+              <li class="dropdown__item" *ngFor="let interaction of interactionModes; let i = index">
+                <a (click)="updateSelectedMode(i)">{{ interaction }}</a></li>
+            </ul>
+          </div>
+
+
+        </div>
+
+        <div class="settings__item" *ngIf="selectedResource?.type ?? 0 > 0 && selectedMode != '0'">
+          <div class="tooltip">
+            <label for="selectMaskTexture">Lens Mask</label>
+            <span class="tooltiptext">Select visualization of lens in shader (<em>only ktx textures</em>)</span>
+          </div>
+
+          <div class="dropdown">
+
+            <label for="selectMaskTexture">
+              <span class="dropdown__title">{{settings.lensMasks[settings.defaultLayerSettings.defaultLensMaskIdx]}}</span>
+            </label>
+            <input type="checkbox" id="selectMaskTexture" class="dropdown__check" [(ngModel)]="isMaskSelected">
+
+            <ul class="dropdown__slide">
+              <li class="dropdown__item" *ngFor="let mask of masks; let i = index">
+                <a (click)="updateSelectedMask(i)">
+                  <div class="settings__mask-preview--container">
+                    <img class="settings__mask-preview--image" src="assets/textures/common/{{mask}}" alt="{{mask}}">
+                    <span class="settings__mask-preview--name">{{ mask }}</span>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="settings__item" *ngIf="(selectedResource?.type ?? 0) > 0 && selectedMode != '0'">
+          <div class="tooltip">
+            <label for="borderColorLense">border color (mask)</label>
+            <span class="tooltiptext">Specify border color for lens (<em>only ktx textures and selected mask with border</em>), <em>Format:</em> Hex values for RGBA, Alpha can be omitted</span>
+          </div>
+          <input class="settings__border-color--input" [(ngModel)]="color" (ngModelChange)="updateColor()" type="text" name="borderColorLense" id="borderColorLense">
+          <div class="settings__border-color--preview" [style.background]="'#'+color"></div>
+        </div>
+
+        <div class="settings__item" *ngIf="(selectedResource?.type ?? 0) === 0 && (selectedMode === '1' || selectedMode === '2')">
+          <div class="tooltip">
+            <label for="rangeLensSize">Lens Size</label>
+            <span class="tooltiptext">Specify size of the lens (<em>only texture arrays</em>).</span>
+          </div>
+          <input  min="0.5" max="2" step="0.01"
+            [(ngModel)]="settings.defaultLayerSettings.lensSize" (ngModelChange)="updateSettings()"
+            type="range" name="rangeLensSize" id="rangeLensSize">
+        </div>
+
+        <div class="settings__item" *ngIf="(selectedResource?.type ?? 0) === 0 && (selectedMode === '1' || selectedMode === '2')">
+          <div class="tooltip">
+            <label for="rangeLensOffsetX">Lens Offset (X)</label>
+            <span class="tooltiptext">Specify the horizontal offset from the finger position (<em>only texture arrays</em>)</span>
+          </div>
+          <input  min="-960" max="960" step="1"
+            [(ngModel)]="settings.defaultLayerSettings.lensOffsetX" (ngModelChange)="updateSettings()"
+            type="range" name="rangeLensOffsetX" id="rangeLensOffsetX">
+        </div>
+
+        <div class="settings__item" *ngIf="(selectedResource?.type ?? 0) === 0 && (selectedMode === '1' || selectedMode === '2')">
+          <div class="tooltip">
+            <label for="rangeLensOffsetY">Lens Offset (Y)</label>
+            <span class="tooltiptext">Specify the vertical offset from the finger position (<em>only texture arrays</em>)</span>
+          </div>
+          <input  min="-540" max="540" step="1"
+            [(ngModel)]="settings.defaultLayerSettings.lensOffsetY" (ngModelChange)="updateSettings()"
+            type="range" name="rangeLensOffsetY" id="rangeLensOffsetY">
+        </div>
+
+        <div class="settings__item" *ngIf="(selectedResource?.type ?? 0) === 0 && (selectedMode === '1' || selectedMode === '2')">
+          <div class="tooltip">
+            <label for="toggleShowLense">show Lense UI</label>
+            <span class="tooltiptext">Specify whether layers and layer for lense are displayed around the lens (<em>only texture arrays</em>)</span>
+          </div>
+          <input [(ngModel)]="settings.defaultLayerSettings.showLenseUI" (ngModelChange)="updateSettings()" type="checkbox" name="toggleShowLense" id="toggleShowLense">
+        </div>
+
+        <div class="settings__item" *ngIf="selectedMode != '0'">
+          <div class="tooltip">
+            <label for="toggleShowLayer">show Layer UI</label>
+            <span class="tooltiptext">Specify whether layers and layer for lense are displayed on the left side of the screen</span>
+          </div>
+          <input [(ngModel)]="settings.defaultLayerSettings.showLayerUI" (ngModelChange)="updateSettings()" type="checkbox" name="toggleShowLayer" id="toggleShowLayer">
+        </div>
+
+        <div class="settings__item">
+          <a class="settings__button" *ngIf="electronService.isElectronAvailable | async" (click)="saveSettings()">Save</a>
+          <a class="settings__button" (click)="reloadSettings()">Reload</a>
+          <a class="settings__button" (click)="restoreSettings()">Restore</a>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,142 @@
+precision highp float;
+precision highp int;
+precision highp sampler2D;
+
+uniform sampler2D layers[15];
+uniform sampler2D depth;
+
+uniform int numImages;
+
+uniform float showDepth;
+uniform float minDepth;
+uniform float maxDepth;
+uniform float interpolateColor;
+uniform float applyCalibration;
+uniform float doOverrideDepth;
+uniform float depthOverrideValue;
+
+uniform vec2 viewportSize;
+uniform vec3 scale;
+uniform vec3 translate;
+uniform vec2 originalSize;
+
+in vec2 vUv;
+out vec4 outColor;
+
+vec4 computeColorDynamic(vec2 texCoordsDepth, vec2 texCoords)
+{	
+	vec4 imageFront = texture2D(layers[0], texCoords);
+	vec4 imageBack = texture2D(layers[1], texCoords);
+	
+	float depth = texture2D(depth, texCoordsDepth).x;
+	// uncomment for testing:
+	// depth = 0.4;
+
+	if (doOverrideDepth > 0.5) {
+		depth = 1.0 - depthOverrideValue;
+	}
+
+	depth = clamp(depth, minDepth, maxDepth);
+
+	float factor = 1.0 / (maxDepth - minDepth);
+	depth = 1.0 - ((depth - minDepth) * factor);
+
+	if (showDepth > 0.5)
+		return vec4(depth, depth, depth, 1.0);
+
+	float layerWidth = 1.0 / float(numImages - 1);
+	float layer = 0.0;
+	
+	int i = int(floor(depth / layerWidth));
+
+	if (i == 1)	{
+		imageFront = texture2D(layers[1], texCoords);
+		imageBack = texture2D(layers[2], texCoords);
+		layer = 1.0;
+	} else if (i == 2)	{
+		imageFront = texture2D(layers[2], texCoords);
+		imageBack = texture2D(layers[3], texCoords);
+		layer = 2.0;
+	} else if (i == 3)	{
+		imageFront = texture2D(layers[3], texCoords);
+		imageBack = texture2D(layers[4], texCoords);
+		layer = 3.0;
+	} else if (i == 4)	{
+		imageFront = texture2D(layers[4], texCoords);
+		imageBack = texture2D(layers[5], texCoords);
+		layer = 4.0;
+	} else if (i == 5)	{
+		imageFront = texture2D(layers[5], texCoords);
+		imageBack = texture2D(layers[6], texCoords);
+		layer = 5.0;
+	} else if (i == 6)	{
+		imageFront = texture2D(layers[6], texCoords);
+		imageBack = texture2D(layers[7], texCoords);
+		layer = 6.0;
+	} else if (i == 7)	{
+		imageFront = texture2D(layers[7], texCoords);
+		imageBack = texture2D(layers[8], texCoords);
+		layer = 7.0;
+	} else if (i == 8)	{
+		imageFront = texture2D(layers[8], texCoords);
+		imageBack = texture2D(layers[9], texCoords);
+		layer = 8.0;
+	} else if (i == 9)	{
+		imageFront = texture2D(layers[9], texCoords);
+		imageBack = texture2D(layers[10], texCoords);
+		layer = 9.0;
+	} else if (i == 10)	{
+		imageFront = texture2D(layers[10], texCoords);
+		imageBack = texture2D(layers[11], texCoords);
+		layer = 10.0;
+	} else if (i == 11)	{
+		imageFront = texture2D(layers[11], texCoords);
+		imageBack = texture2D(layers[12], texCoords);
+		layer = 11.0;
+	} else if (i == 12)	{
+		imageFront = texture2D(layers[12], texCoords);
+		imageBack = texture2D(layers[13], texCoords);
+		layer = 12.0;
+	} else if (i > 12) {
+		imageFront = texture2D(layers[13], texCoords);
+		imageBack = texture2D(layers[14], texCoords);
+		layer = 13.0;
+	} 	
+
+	float blend = (depth - (layer * layerWidth)) / layerWidth;
+
+	vec4 result;
+
+	if (interpolateColor > 0.5)
+	{
+		result = blend * imageBack + (1.0 - blend) * imageFront;
+	}
+	else
+	{
+		result = (depth > 0.95) ? imageBack : imageFront;
+	}		
+
+	return result;
+}
+
+float computeCalibratedPosition(float vpSize, float orgSize, float scl, float trans, float texcoord) {
+	float factor = vpSize / orgSize;
+	float calibrated = ((texcoord * factor)) / scl - trans / vpSize;
+	return calibrated;
+}
+
+void main() {
+	vec2 coords = vec2(mod(vUv.x, 1.0), mod(vUv.y, 1.0));
+
+	if (applyCalibration > 0.5) {
+		
+		float calibX = computeCalibratedPosition(viewportSize.x, originalSize.x, scale.x, translate.x, coords.x);
+		float calibY = computeCalibratedPosition(viewportSize.y, originalSize.y, scale.y, translate.y, coords.y);		
+		
+		vec2 calibratedCoords = vec2(mod(calibX, 1.0), mod(calibY, 1.0));
+
+		outColor = computeColorDynamic(calibratedCoords, coords);
+	} else {
+	    outColor = computeColorDynamic(coords, coords);
+	}
+}

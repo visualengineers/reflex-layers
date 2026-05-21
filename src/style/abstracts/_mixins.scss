@@ -1,0 +1,68 @@
+@mixin clearfix {   
+    &::after {
+        content: "";            // content needs to be specified, otherwise, element is not rendered
+        display: table;         // layout for the pseudo element
+        clear: both;            // clear all floats;
+    }    
+}
+
+@mixin text-gradient {
+    display: inline-block;
+    background-image: linear-gradient(to right, $color-primary-light, $color-primary-dark);
+    -webkit-background-clip: text;
+    color: transparent;    
+}
+
+@mixin center-element($x:50%, $y:50%) {
+    position: absolute;
+    top: $x;
+    left: $y;
+    transform: translate(-50%, -50%);
+}
+
+// Media Query Manager
+/* 
+    0 - 600px:          Phone
+    600px - 900px:      Tablet Portrait
+    900px - 1200px:     Tablet Landscape
+    (1200px-1800px):    normal styles (Desktop first)
+    >1800px:            Big Desktop
+$breakpoint argument choices:
+- phone
+- tab-port
+- tab-land
+- big-desktop
+*/
+
+@mixin respond($breakpoint) {
+  @if $breakpoint == phone {
+    @media only screen and (max-width: 37.5em) { @content };       // 37.5em = 600px
+   }
+
+  @if $breakpoint == tab-port {
+    @media only screen and (max-width: 56.25em) { @content };      // 56.25em = 900px
+  }
+
+  @if $breakpoint == tab-land {
+    @media only screen and (max-width: 75em) { @content };         // 75 em = 1200px
+  }
+
+  @if $breakpoint == big-desktop {
+    @media only screen and (min-width: 112.5em) { @content };      // 112.5em = 1800px
+  }
+}
+
+@mixin idle-animation {
+  opacity: 0;
+
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-duration: $animation-duration;
+  animation-delay: 7s;
+}
+
+@mixin gradient-mask {
+    
+  -webkit-mask-image: radial-gradient(circle, #000, #000 130px, transparent 190px);
+  mask-image: radial-gradient(circle, #000, #000 15%, transparent 22.5%);
+}

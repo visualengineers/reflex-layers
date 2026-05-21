@@ -1,0 +1,342 @@
+@import "styles";
+
+.settings {
+    &__container {
+        position: fixed;
+        width: 25vw;
+        height: 90vh;
+        top: 4rem;
+        right: 4rem;
+        z-index: 1500;
+        padding: 4rem;
+
+        opacity: 0;
+        transform: scale(0);
+        transform-origin: right top;
+
+        transition: opacity 0.5s;
+        transition: transform 0.5s;
+
+        // overflow-y: auto;
+        // overflow-x: hidden;
+    }
+
+    &__heading {
+        color: $color-white;
+        font-weight: 200;
+        font-size: 2rem;
+        text-transform: uppercase;
+
+        display: flex;
+        align-content: center;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    &__group {
+        padding: 2rem 0rem 1rem 0rem;
+        border-bottom: 1px solid $color-grey-dark;
+
+        &--header {
+            text-align: center;
+            color: $color-grey-light-2;
+        }
+    }
+
+    &__item {
+        margin-top: 0.5rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;        
+    }
+
+    &__connection-status {
+        background-color: transparent;
+        border: 1px solid $color-white;
+        border-radius: 100%;
+        width: 1.5rem;
+        height: 1.5rem;
+        display: block;
+        margin-left: 3rem;
+
+        &.connected {
+            background-color: $color-active;
+        }
+
+        &.waiting {
+            background-color: $color-inactive;
+        }
+
+        &.disconnected {
+            background-color: $color-error;
+        }
+
+        &.error {
+            background-color: $color-fatal;
+        }
+    }
+
+    &__texture {
+        &--list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+            align-items: center;
+            padding: 0 1rem 0 0;
+            overflow-y: auto;
+            overflow-x: hidden;           
+            max-height: 40vh;
+        }
+
+        &--preview-item {
+            display: flex;
+
+            // position: relative;
+
+            transition: all 0.2s;
+
+            & img {
+                width: 100%;
+                border: 1px solid white;                
+    
+                transition: all 0.2s;                 
+            }                     
+        }
+
+        &--preview-item img:hover +&-preview-large {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        &-preview-large {
+            transform: scale(5);
+            transform-origin: top right;
+            z-index: 3000;
+
+            position: absolute;
+            width: 5rem;
+            top: 15.1rem;
+            left: -2.5rem;
+            overflow-x: visible;
+            overflow-y: visible;
+            visibility: collapse;
+            opacity: 0;
+
+            &--description {
+                position: absolute;
+                bottom: 0;
+                display: flex;
+                height: 1rem;
+                width: 100%;
+                background-color: white;
+                font-size: 0.25rem;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+
+    &__mask-preview {
+        &--container {
+            display: flex;
+            margin: 0rem -2rem;
+        }
+
+        &--image {
+            width: 50px;
+            height: 30px;
+        }
+
+        &--name {
+            font-size: 1rem;
+            margin: 0 1rem;
+            text-align: left;
+        }
+    }
+
+    &__border-color {
+        &--input {
+            background-color: $color-grey-dark;
+            color: $color-white;
+            width: 6rem;
+            border: 0px;
+            border-bottom: 1px solid $color-white;
+            border-radius: 2px;
+
+            &:active, &:focus {
+                outline: none;
+            }
+        }
+
+        &--preview {
+            width: 4rem;
+            border: 1px solid white; 
+            border-radius: 2px;           
+        }
+    }
+
+     // checkbox-hack: use a checkbox for navigation button and hide default checkbox
+    &__checkbox {
+        display: none;
+    }
+
+
+
+    // button on top of Background
+    &__button-toggle {
+        background-color: $color-grey-dark-3;
+        height: 7rem;
+        width: 7rem;
+        border-radius: 50%;
+        position: fixed;
+        top: 6rem;
+        right: 6rem;
+
+        z-index: 2000;
+
+        box-shadow: 0 1rem 3rem rgba($color-black, .1);
+
+        text-align: center;
+        cursor: pointer;
+
+        transition: border-color .5s;
+
+        @include respond(tab-port) {
+            top: 4rem;
+            right: 4rem;
+        }
+
+        @include respond(phone) {
+            top: 3rem;
+            right: 3rem;
+        }
+    }
+
+    &__button {
+        border-radius: 2px;
+        background-color: $color-grey-dark;
+        color: $color-white;
+        border: 1px solid $color-grey-dark;
+        cursor: pointer;
+        width: 20rem;
+        padding: 0.5rem 1rem;
+        font-weight: 100;
+        font-size: $font-size-small;
+        text-align: center;
+
+        &:not(:first-child) {
+            margin-left: 2rem;
+        }
+
+        &:hover {
+            background-color: $color-grey-dark-3;
+            color: $color-grey-dark;
+        }
+
+        &:active {
+            background-color: $color-primary;
+            color: $color-white;
+        }
+    }
+
+    // grey background expanding on click
+    &__background {
+        height: 0rem;
+        width: 0rem;
+
+        border-radius: 1rem;    
+        position: fixed;
+        top: 8rem;
+        right: 8rem;
+
+        z-index:1000; 
+        
+        background-color: $color-grey-dark-3;
+        
+        transition: all .3s;
+
+        @include respond(tab-port) {
+            top: 4.5rem;
+            right: 4.5rem;
+        }
+
+        @include respond(phone) {
+            top: 3.5rem;
+            right: 3.5rem;
+        }
+    }    
+
+    // functionality: display background and menu
+    &__checkbox:checked ~&__background {
+        width: 25vw;
+        height: 90vh;
+        transform: translate(4rem, -4rem);
+    }
+
+    // make content visible
+    &__checkbox:checked ~&__container {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    // icon
+    &__icon {
+
+        position: relative;
+        margin-top: 3.4rem;                
+
+        &,
+        &:before,
+        &:after {
+            width: 3rem;
+            height: 2px;
+            background-color: $color-white;
+            display: inline-block;
+        }
+
+        &:before,
+        &:after {
+            content: "";  
+            position: absolute; 
+            
+            left: 0;
+            transition: all .2s;
+        }
+
+        &::before {
+            top: -.8rem;
+        }
+
+        &::after {
+            top: .8rem;
+        }
+
+    }
+
+    &__button-toggle:hover &__icon:before {
+        top: -1rem;
+    }
+
+    &__button-toggle:hover &__icon:after {
+        top: 1rem;
+    }
+
+    &__checkbox:checked + &__button-toggle {
+        border-color: transparent;           
+    }
+
+    &__checkbox:checked + &__button-toggle &__icon {
+        background-color: transparent;        
+    }
+
+    &__checkbox:checked + &__button-toggle &__icon::before {
+        transform: rotate(135deg);
+        top: 0;
+    }
+
+    &__checkbox:checked + &__button-toggle &__icon::after {
+        transform: rotate(-135deg);
+        top: 0;
+    }
+}

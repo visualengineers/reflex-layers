@@ -1,0 +1,38 @@
+@import "styles";
+
+:host {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.visualization {
+    &__lens-fullscreen {
+        position: absolute;
+        
+        width: 100vw;
+        height: 100vh;
+
+        top: 0;
+        left: 0;
+
+        background-attachment: fixed;       
+        background-size: 100% 100%;       
+    }
+    
+    &__background {
+        position: absolute;
+        
+        width: 100vw;
+        height: 100vh;
+
+        top: 0;
+        left: 0;
+
+        background-attachment: fixed;
+        background-size: 100% 100%;
+    }
+}

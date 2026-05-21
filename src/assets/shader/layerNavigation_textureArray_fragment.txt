@@ -1,0 +1,42 @@
+precision highp float;
+precision highp int;
+precision highp sampler2DArray;
+
+uniform sampler2DArray layers;
+
+uniform int numImages;
+
+uniform float depthValue;
+
+in vec2 vUv;
+out vec4 outColor;
+
+// conversion from Linear color space to sRGB
+vec4 fromLinear(vec4 linearRGB)
+{
+	bvec4 cutoff = lessThan(linearRGB, vec4(0.0031308));
+	vec4 higher = vec4(1.055)*pow(linearRGB, vec4(1.0/2.4)) - vec4(0.055);
+	vec4 lower = linearRGB * vec4(12.92);
+
+	return mix(higher, lower, cutoff);
+}
+
+// conversion from Linear color space to sRGB
+vec4 toLinear(vec4 sRGB)
+{
+	bvec4 cutoff = lessThan(sRGB, vec4(0.04045));
+	vec4 higher = pow((sRGB + vec4(0.055))/vec4(1.055), vec4(2.4));
+	vec4 lower = sRGB/vec4(12.92);
+
+	return mix(higher, lower, cutoff);
+}
+
+vec4 computeColorDynamic(vec2 texCoords)
+{		
+	return fromLinear(texture(layers, vec3(texCoords, depthValue * float(numImages))));
+}
+
+void main() {
+	vec2 coords = vec2(vUv.x, 1.0 - vUv.y);
+	outColor = computeColorDynamic(coords);
+}

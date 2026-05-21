@@ -1,0 +1,106 @@
+// Checkbox / Toggle Style 
+
+.checkbox {
+    position: relative;
+    width: 100px;
+    margin: -3px 0 0 0;
+    display: block;
+    font-size: $font-size-small;
+  }
+  
+  // Toggle Switch
+  
+  input[type="checkbox"].checkbox-toggle {
+    position: absolute;
+    left: -9999px; 
+  }
+  
+  label.checkbox-toggle-label {
+    color: $color-primary;  
+    
+    span.on {
+      position: absolute;
+      top: 6px;
+      right:26px;
+      display:none;
+      
+    }
+    span.off {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      display:inline-block;
+    }
+  
+    span.text {
+      display: block;
+      margin-top: 0.6rem;
+    }
+    
+  }
+  
+  label.checkbox-toggle-label:before   {
+      content: '';
+      background: $color-primary-light-2;
+      border-radius: 20px 20px 20px 20px;
+      border: none;
+      width: 48px; 
+      height: 20px;
+      position: absolute;
+      top: 5px;
+      right: 0px;
+  }
+  
+  
+  label.checkbox-toggle-label:after   {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        right: 30px;
+        top: 8px;
+        width: 14px;
+        height: 14px;
+        background: $color-white;
+        transition: .1s ease-in;  
+  }
+  
+  input.checkbox-toggle {
+    visibility: hidden; 
+  
+    &:disabled + label.checkbox-toggle-label {
+      color: $color-grey-light-2;
+    }
+  
+    &:disabled + label.checkbox-toggle-label:after {
+      background: $color-grey-light-2;
+    }
+  
+    &:disabled + label.checkbox-toggle-label:before {
+      background: $color-grey-light-3;
+    }
+  
+    &:checked + label.checkbox-toggle-label:after {
+      opacity: 1;
+      transform: translateX(26px);
+      background: $color-primary;
+      
+    } 
+  
+    &:checked + label.checkbox-toggle-label:before {
+      background: $color-white;
+      border: 1px solid $color-grey-dark;
+  
+    } 
+  
+    &:checked + label.checkbox-toggle-label {
+      color: $color-primary;
+      
+      span.on {        
+        display:inline-block;
+      }
+        
+      span.off {        
+          display:none;
+      }      
+    }
+  }

@@ -1,0 +1,51 @@
+// COLORS
+$color-primary: #3895d3;
+$color-primary-light: #7ed56f;
+$color-primary-light-2: #8fb988;
+$color-primary-dark: #28b485;
+
+$primary-gradient: linear-gradient(135deg, $color-primary-light, $color-primary-dark);
+
+$color-secondary-light: #ffb900;
+$color-secondary-dark: #ff7730;
+
+$secondary-gradient: linear-gradient(135deg, $color-secondary-light, $color-secondary-dark);
+
+$color-tertiary-light: #2998ff;
+$color-tertiary-dark: #5643fa;
+
+$tertiary-gradient: linear-gradient(135deg, $color-tertiary-light, $color-tertiary-dark);
+
+$color-grey-light-1: #f7f7f7;
+$color-grey-light-2: #eee;
+$color-grey-light-3: #d9d9d9;;
+
+$color-grey-dark: #777;
+$color-grey-dark-2: #999;
+$color-grey-dark-3: #333;
+$color-white: #fff;
+$color-black: #000;
+
+$color-active: #55c57a;
+$color-inactive: #e6e367;
+$color-error: #e27a4a;
+$color-fatal: #830f0f;
+
+// FONT
+
+$default-font-size: 1.3rem;
+$font-size-small: 1.0rem;
+
+// GRID
+$grid-width: 114rem;
+$grid-width-small: 50rem;
+$gutter-vertical: 8rem;
+$gutter-vertical-small: 6rem;
+$gutter-horizontal: 6rem;
+
+// OTHER 
+
+$default-border-radius: 3px;
+
+// idle animation
+$animation-duration: 14s;

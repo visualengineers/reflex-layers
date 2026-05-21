@@ -1,0 +1,33 @@
+{
+  "defaultResourceId": 14,
+  "showDepthImage": false,
+  "hideSettingsPanel": true,
+  "doOverrideDepth": false,
+  "depthOverrideValue": 0.0,
+  "minDepth": 0.0,
+  "maxDepth": 0.5,
+  "streamNativeDepthImage": false,
+  "applyCalibration": true,
+  "lensMasks": [
+    "mask_1080p_border_plain.png",
+    "mask_1080p_border_fisheye-linear.png",
+    "mask_1080p_no-border_fisheye-linear.png",
+    "mask_1080p_border_fisheye-exponential.png",
+    "mask_1080p_no-border_fisheye-exponential.png"
+  ],
+  "enableIdleMode": true,
+  "useLogo": true,
+  "idleLogoImage": "logo_tv_htw.png",
+  "defaultLayerSettings": {
+    "interaction": 0,
+    "interpolateColor": true,
+    "showLenseUI": true,
+    "showLayerUI": true,
+    "defaultLensMaskIdx": 4,
+    "lensBorderColor": "#ffffff",
+    "lensSize": 1.0,
+    "lensOffsetX": 0.0,
+    "lensOffsetY": 0.0,
+    "maxNumLenses": 3
+  }
+}

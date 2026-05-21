@@ -1,0 +1,14 @@
+.fullscreen {
+    &-render {
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        margin: 0;
+        padding: 0;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        object-fit: cover;
+        object-position: left;        
+    }
+}
