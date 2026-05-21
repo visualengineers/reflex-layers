@@ -10,12 +10,12 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "start:electron": "ng build --base-href ./ && electron .",
-    "build:electron": "ng build --base-href ./ && electron-builder build --win"
+    "build:electron-win": "ng build --base-href ./ && electron-builder build --win"
   },
   "build": {
     "appId": "reflex.layers",
     "productName": "ReFlex Layers",
-    "copyright": "Copyright © 2023-2025",
+    "copyright": "Copyright © 2023-2026 HTW Dresden",
     "buildVersion": "0.9.9",
     "files": [
       "main.js",
