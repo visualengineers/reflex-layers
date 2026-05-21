@@ -16,7 +16,7 @@
 @if ((IdleService.ShowIdleScreen | async) !== true && (SettingsService.CurrentSettings | async)?.defaultLayerSettings?.interaction != 0 && (SettingsService.CurrentSettings | async)?.defaultLayerSettings?.interaction != 3) {
   <div class="visualization_lens--container"
     >
-    @for (elem of LensProperties; track elem; let idx = $index) {
+    @for (elem of LensProperties; track $index; let idx = $index) {
       <app-lens
         [style.visibility]="ShowLens ? 'visible' : 'collapse'"
         [LensScale]="(SettingsService.CurrentSettings | async)?.defaultLayerSettings?.lensSize ?? 1.0"
