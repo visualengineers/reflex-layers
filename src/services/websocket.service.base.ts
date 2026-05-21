@@ -1,4 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import log from 'electron-log';
 import { BehaviorSubject, combineLatest, concatMap, delay, distinctUntilChanged, filter, Observable, Observer, Subscription, tap } from 'rxjs';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
@@ -6,6 +7,7 @@ import { IConnectionState } from 'src/shared/interface/connectionState.interface
 import { DiagnosticsService } from './diagnostics.service';
 import { DiagnosticsData } from 'src/shared/util/diagnostics-data.interface';
 
+@Injectable()
 export abstract class WebSocketServiceBase<T> implements IConnectionState {
   public Data: BehaviorSubject<T>
 
@@ -62,6 +64,8 @@ export abstract class WebSocketServiceBase<T> implements IConnectionState {
   }
 
   public startStreaming() {
+    this.stopStreaming();
+
     this._reconnectSubscription =
       combineLatest([this.isConnected, this.isConnecting]).pipe(
       distinctUntilChanged(),
@@ -84,6 +88,17 @@ export abstract class WebSocketServiceBase<T> implements IConnectionState {
 
   public stopStreaming() {
     this._reconnectSubscription?.unsubscribe();
+    this._reconnectSubscription = undefined;
+    this._depthImageSubscription?.unsubscribe();
+    this._depthImageSubscription = undefined;
+    this.Socket?.complete();
+    this.Socket = undefined;
+    this.isConnecting.next(false);
+    this.isConnected.next(false);
+  }
+
+  public ngOnDestroy(): void {
+    this.stopStreaming();
   }
 
   protected abstract enableSocket(): Observable<Object>;

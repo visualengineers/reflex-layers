@@ -40,7 +40,13 @@ module.exports = function (config) {
     customLaunchers: {
       ChromeHeadlessNoGpu: {
         base: 'ChromeHeadless',
-        flags: ['--disable-gpu', '--enable-unsafe-swiftshader', '--remote-debugging-port=0']
+        flags: [
+          '--disable-gpu',
+          '--disable-gpu-compositing',
+          '--disable-dev-shm-usage',
+          '--no-sandbox',
+          '--remote-debugging-port=0'
+        ]
       }
     },
     browsers: ['Chrome'],

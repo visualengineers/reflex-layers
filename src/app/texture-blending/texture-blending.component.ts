@@ -292,6 +292,8 @@ export class TextureBlendingComponent implements OnInit, AfterViewInit, OnDestro
     this._interactionTypeSubscription?.unsubscribe();
     this._calibrationSubscription?.unsubscribe();
     this._depthImageResolutionSubscription?.unsubscribe();
+    this._renderer?.dispose();
+    this._renderer?.forceContextLoss();
   }
 
   private updateDepthImageSubscription() {
