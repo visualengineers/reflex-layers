@@ -187,7 +187,7 @@
                       </ul>
                     </div>
                   </div>
-                  @if (selectedResource?.type ?? 0 > 0 && selectedMode != '0') {
+                  @if ((selectedResource?.type ?? 0) > 0 && selectedMode != '0') {
                     <div class="settings__item">
                       <div class="tooltip">
                         <label for="selectMaskTexture">Lens Mask</label>

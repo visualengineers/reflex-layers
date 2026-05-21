@@ -1,5 +1,4 @@
 import { Component, HostListener } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { DiagnosticsService } from 'src/services/diagnostics.service';
 import { KeyboardShortcutService } from 'src/services/keyboard-shortcut.service';
 import { DepthImageComponent } from './depth-image/depth-image.component';
@@ -13,7 +12,6 @@ import { TextureBlendingComponent } from './texture-blending/texture-blending.co
     selector: 'app-root',
     templateUrl: './app.html',
     imports: [
-        RouterOutlet,
         DepthImageComponent,
         DepthLayerVisualizationComponent,
         IdleScreenComponent,
