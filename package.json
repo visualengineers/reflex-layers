@@ -22,7 +22,10 @@
       "main.js",
       "dist/browser/**/*"
     ],
-    "asar": false,
+    "asar": true,
+    "asarUnpack": [
+      "dist/browser/assets/**/*"
+    ],
     "directories": {
       "output": "release",
       "buildResources": "assets"

@@ -4,6 +4,17 @@ const path = require("path");
 const fs = require('fs');
 const url = require("url");
 
+function getAppBasePath() {
+  if (app.isPackaged) {
+    return path.join(process.resourcesPath, 'app.asar.unpacked');
+  }
+
+  return __dirname;
+}
+
+function getAssetPath(...segments) {
+  return path.join(getAppBasePath(), 'dist', 'browser', 'assets', ...segments);
+}
 
 app.commandLine.appendSwitch('disable-http-cache');
 app.commandLine.appendSwitch('ignore-certificate-errors', 'true');
@@ -140,7 +151,7 @@ app.on("window-all-closed", () => {
 });
 
 ipcMain.on('save-settings', (event, settings) => {
-  const settingsFile = path.join(__dirname, '/dist/browser/assets/data/settings.json');
+  const settingsFile = getAssetPath('data', 'settings.json');
   fs.writeFile(settingsFile, settings,
     () => {
       console.info('Successfully saved configuration: ' + settings),

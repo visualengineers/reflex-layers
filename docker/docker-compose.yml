@@ -1,0 +1,11 @@
+services:
+  reflex-layers:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: reflex-layers:latest
+    ports:
+      - "4302:80"
+    volumes:
+      - ../src/assets:/usr/share/nginx/html/assets:ro
+    restart: unless-stopped
