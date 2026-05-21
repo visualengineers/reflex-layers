@@ -1,4 +1,4 @@
-@import "styles";
+@use "style/abstracts" as *;
 
 :host {
     position: absolute;

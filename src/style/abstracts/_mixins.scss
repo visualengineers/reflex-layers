@@ -1,3 +1,5 @@
+@use "variables" as *;
+
 @mixin clearfix {   
     &::after {
         content: "";            // content needs to be specified, otherwise, element is not rendered
