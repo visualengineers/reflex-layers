@@ -69,7 +69,7 @@ function createWindow() {
   // load the dist folder from Angular
   win.loadURL(
     url.format({
-      pathname: path.join(__dirname, '/dist/index.html'), // compiled version of our app
+      pathname: path.join(__dirname, '/dist/browser/index.html'), // compiled version of our app
       protocol: "file:",
       slashes: true
     })
@@ -82,7 +82,7 @@ function createWindow() {
 
   win.webContents.on('did-fail-load', () => win.loadURL(
     url.format({
-      pathname: path.join(__dirname, '/dist/index.html'), // compiled version of our app
+      pathname: path.join(__dirname, '/dist/browser/index.html'), // compiled version of our app
       protocol: "file:",
       slashes: true
     })
@@ -140,7 +140,7 @@ app.on("window-all-closed", () => {
 });
 
 ipcMain.on('save-settings', (event, settings) => {
-  const settingsFile = path.join(__dirname, '/dist/assets/data/settings.json');
+  const settingsFile = path.join(__dirname, '/dist/browser/assets/data/settings.json');
   fs.writeFile(settingsFile, settings,
     () => {
       console.info('Successfully saved configuration: ' + settings),
