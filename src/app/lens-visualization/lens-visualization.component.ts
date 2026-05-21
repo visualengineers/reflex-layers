@@ -11,11 +11,17 @@ import { IdleModeService } from 'src/services/idle-mode-service';
 import { DefaultLensProperties, LensProperties } from 'src/shared/interface/lens-properties';
 import { InteractionMetaphor } from 'src/shared/enum/interaction-metaphor';
 import log from 'electron-log';
+import { CommonModule } from '@angular/common';
+import { LensComponent } from '../lens/lens.component';
 
 @Component({
-  selector: 'app-lens-visualization',
-  templateUrl: './lens-visualization.component.html',
-  styleUrls: ['./lens-visualization.component.scss']
+    selector: 'app-lens-visualization',
+    templateUrl: './lens-visualization.component.html',
+    styleUrls: ['./lens-visualization.component.scss'],
+    imports: [
+        CommonModule,
+        LensComponent
+    ]
 })
 export class LensVisualizationComponent implements OnInit {
 

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { appTestProviders } from 'src/testing/test-providers';
 
 import { IdleScreenComponent } from './idle-screen.component';
 
@@ -8,7 +9,8 @@ describe('IdleScreenComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IdleScreenComponent ]
+      imports: [IdleScreenComponent],
+      providers: appTestProviders
     })
     .compileComponents();
   });

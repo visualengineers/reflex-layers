@@ -9,27 +9,27 @@ import { SettingsService } from 'src/services/settings.service';
 import { TextureRepositoryService } from 'src/services/texture-repository.service';
 import { InteractionMetaphor } from 'src/shared/enum/interaction-metaphor';
 import { TextureResourceType } from 'src/shared/enum/texture-resource-type';
-import { LayerSettings } from 'src/shared/interface/layer-settings';
 import { TextureResource } from 'src/shared/interface/texture-resource';
 import { DepthInformation } from 'src/shared/model/depth-information';
 import { hexToRgb } from 'src/shared/util/util';
 import * as THREE from 'three';
 import { DataTexture, PixelFormat, RedFormat, Texture, Vector2 } from 'three';
-import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader';
+import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader.js';
 import log from 'electron-log';
 import { AppSettings } from 'src/shared/interface/app-settings';
 
 @Component({
   selector: 'app-texture-blending',
   templateUrl: './texture-blending.component.html',
-  styleUrls: ['./texture-blending.component.scss']
+  styleUrls: ['./texture-blending.component.scss'],
+  standalone: true
 })
 export class TextureBlendingComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('renderContainer')
   public container?: ElementRef;
 
-  @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize', [])
   onResize() {
     this._screenHeight = window.innerHeight;
     this._screenWidth = window.innerWidth;
@@ -292,6 +292,8 @@ export class TextureBlendingComponent implements OnInit, AfterViewInit, OnDestro
     this._interactionTypeSubscription?.unsubscribe();
     this._calibrationSubscription?.unsubscribe();
     this._depthImageResolutionSubscription?.unsubscribe();
+    this._renderer?.dispose();
+    this._renderer?.forceContextLoss();
   }
 
   private updateDepthImageSubscription() {

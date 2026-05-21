@@ -1,23 +1,30 @@
-<div *ngIf="(SettingsService.CurrentSettings | async)?.defaultLayerSettings?.interaction != 0"
+@if ((SettingsService.CurrentSettings | async)?.defaultLayerSettings?.interaction != 0) {
+  <div
     class="visualization__background"
     [style.background-image]="BackgroundImage"
-></div>
+  ></div>
+}
 
-<div *ngIf="(SettingsService.CurrentSettings | async)?.defaultLayerSettings?.interaction == 3"
+@if ((SettingsService.CurrentSettings | async)?.defaultLayerSettings?.interaction == 3) {
+  <div
     class="visualization__lens-fullscreen"
     [style.visibility]="ShowLens ? 'visible' : 'collapse'"
     [style.background-image]="CurrentImage">
-</div>
+  </div>
+}
 
-<div class="visualization_lens--container"
-    *ngIf="(IdleService.ShowIdleScreen | async) !== true && (SettingsService.CurrentSettings | async)?.defaultLayerSettings?.interaction != 0 && (SettingsService.CurrentSettings | async)?.defaultLayerSettings?.interaction != 3"
->
-    <app-lens *ngFor="let elem of LensProperties; index as idx"
+@if ((IdleService.ShowIdleScreen | async) !== true && (SettingsService.CurrentSettings | async)?.defaultLayerSettings?.interaction != 0 && (SettingsService.CurrentSettings | async)?.defaultLayerSettings?.interaction != 3) {
+  <div class="visualization_lens--container"
+    >
+    @for (elem of LensProperties; track $index; let idx = $index) {
+      <app-lens
         [style.visibility]="ShowLens ? 'visible' : 'collapse'"
         [LensScale]="(SettingsService.CurrentSettings | async)?.defaultLayerSettings?.lensSize ?? 1.0"
         [Properties]="elem"
         [ShowLensUI]="(SettingsService.CurrentSettings | async)?.defaultLayerSettings?.showLenseUI ?? false">
         {{idx}}
-    </app-lens>
-</div>
+      </app-lens>
+    }
+  </div>
+}
 

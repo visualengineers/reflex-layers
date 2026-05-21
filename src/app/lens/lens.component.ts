@@ -1,10 +1,12 @@
+
 import { Component, Input, OnInit } from '@angular/core';
 import { DefaultLensProperties, LensProperties } from 'src/shared/interface/lens-properties';
 
 @Component({
-  selector: 'app-lens',
-  templateUrl: './lens.component.html',
-  styleUrls: ['./lens.component.scss']
+    selector: 'app-lens',
+    templateUrl: './lens.component.html',
+    styleUrls: ['./lens.component.scss'],
+    imports: []
 })
 export class LensComponent implements OnInit {
 
@@ -13,7 +15,7 @@ export class LensComponent implements OnInit {
 
   @Input()
   public ShowLensUI = false;
- 
+
   @Input()
   public LensScale = 1.0;
 
@@ -25,7 +27,7 @@ export class LensComponent implements OnInit {
   }
 
   constructor() { }
-  
+
   ngOnInit(): void {
   }
 

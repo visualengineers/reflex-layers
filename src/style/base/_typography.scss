@@ -1,3 +1,5 @@
+@use "../abstracts" as *;
+
 /* specify font here to make use of inheritance */
 body {
     font-family: "Lato", sans-serif;

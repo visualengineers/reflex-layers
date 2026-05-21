@@ -1,6 +1,5 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnDestroy } from "@angular/core";
 import { BehaviorSubject, Subscription } from "rxjs";
-import { LayerSettings } from "src/shared/interface/layer-settings";
 import { DepthImageService } from "./depth-image.service";
 import { PointCloudImageService } from "./point-cloud-image.service";
 import { SettingsService } from "./settings.service";
@@ -8,7 +7,7 @@ import log from "electron-log";
 import { AppSettings } from "src/shared/interface/app-settings";
 
 @Injectable()
-export class DepthImageServiceFacade {
+export class DepthImageServiceFacade implements OnDestroy {
 
   public Data: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
@@ -58,5 +57,12 @@ export class DepthImageServiceFacade {
         (imgData) => this.Data.next(imgData)
       );
     }
+  }
+
+  public ngOnDestroy(): void {
+    this._settingsSubscription.unsubscribe();
+    this._depthImageSubscription?.unsubscribe();
+    this._depthImageService.stopStreaming();
+    this._pointCloudImageService.stopStreaming();
   }
 }

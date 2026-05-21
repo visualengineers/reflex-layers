@@ -10,7 +10,7 @@ module.exports = function (config) {
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage'),
-      require('@angular-devkit/build-angular/plugins/karma')
+      
     ],
     client: {
       jasmine: {
@@ -37,6 +37,18 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
+    customLaunchers: {
+      ChromeHeadlessNoGpu: {
+        base: 'ChromeHeadless',
+        flags: [
+          '--disable-gpu',
+          '--disable-gpu-compositing',
+          '--disable-dev-shm-usage',
+          '--no-sandbox',
+          '--remote-debugging-port=0'
+        ]
+      }
+    },
     browsers: ['Chrome'],
     singleRun: false,
     restartOnFileChange: true

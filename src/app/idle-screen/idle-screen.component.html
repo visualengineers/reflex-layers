@@ -1,37 +1,38 @@
-<div class="idle-graphic__container" 
-    *ngIf="ShowIdleScreen"
+@if (ShowIdleScreen) {
+  <div class="idle-graphic__container"
     [style.backgroundImage]="useLogo ? 'url(./assets/idle/'+logoImage+')' : 'transparent'">
     <div class="idle-graphic__background">
-        <img class="idle-graphic__image layer0" 
-            [src]="(ImageBasePath)+(IdleImages[0]?.file ?? '')" alt="layer0"
-            [ngClass]="showGradient ? 'with-gradient' : ''"
+      <img class="idle-graphic__image layer0"
+        [src]="(ImageBasePath)+(IdleImages[0]?.file ?? '')" alt="layer0"
+        [ngClass]="showGradient ? 'with-gradient' : ''"
         />
-        <img class="idle-graphic__image layer1" 
-            [src]="(ImageBasePath)+(IdleImages[1]?.file ?? '')" alt="layer1"
-            [ngClass]="showGradient ? 'with-gradient' : ''"
-        />
-        <img class="idle-graphic__image layer2" 
+        <img class="idle-graphic__image layer1"
+          [src]="(ImageBasePath)+(IdleImages[1]?.file ?? '')" alt="layer1"
+          [ngClass]="showGradient ? 'with-gradient' : ''"
+          />
+          <img class="idle-graphic__image layer2"
             [src]="(ImageBasePath)+(IdleImages[2]?.file ?? '')" alt="layer2"
             [ngClass]="showGradient ? 'with-gradient' : ''"
-        />
-        <img class="idle-graphic__image layer3" 
-            [src]="(ImageBasePath)+(IdleImages[3]?.file ?? '')" alt="layer3"
-            [ngClass]="showGradient ? 'with-gradient' : ''"    
-        />
-        <img class="idle-graphic__image layer4" 
-            [src]="(ImageBasePath)+(IdleImages[4]?.file ?? '')" alt="layer4"
-            [ngClass]="showGradient ? 'with-gradient' : ''"    
-        />
-        <img class="idle-graphic__image layer5" 
-            [src]="(ImageBasePath)+(IdleImages[5]?.file ?? '')" alt="layer5"
-            [ngClass]="showGradient ? 'with-gradient' : ''"    
-        />
-        <img class="idle-graphic__image layer6" 
-            [src]="(ImageBasePath)+(IdleImages[6]?.file ?? '')" alt="layer6"
-            [ngClass]="showGradient ? 'with-gradient' : ''"    
-        />
-        <div class="idle-graphic__lens-border" [style.visibility]="showBorder ? 'visible' : 'hidden'"></div>
-    </div>
-    <img class="idle-graphic__hand" src="./assets/idle/IdleAnimation_Hand.png" alt="hand for idle">
-    <div class="idle-graphic__text"></div>
-</div>
+            />
+            <img class="idle-graphic__image layer3"
+              [src]="(ImageBasePath)+(IdleImages[3]?.file ?? '')" alt="layer3"
+              [ngClass]="showGradient ? 'with-gradient' : ''"
+              />
+              <img class="idle-graphic__image layer4"
+                [src]="(ImageBasePath)+(IdleImages[4]?.file ?? '')" alt="layer4"
+                [ngClass]="showGradient ? 'with-gradient' : ''"
+                />
+                <img class="idle-graphic__image layer5"
+                  [src]="(ImageBasePath)+(IdleImages[5]?.file ?? '')" alt="layer5"
+                  [ngClass]="showGradient ? 'with-gradient' : ''"
+                  />
+                  <img class="idle-graphic__image layer6"
+                    [src]="(ImageBasePath)+(IdleImages[6]?.file ?? '')" alt="layer6"
+                    [ngClass]="showGradient ? 'with-gradient' : ''"
+                    />
+                    <div class="idle-graphic__lens-border" [style.visibility]="showBorder ? 'visible' : 'hidden'"></div>
+                  </div>
+                  <img class="idle-graphic__hand" src="./assets/idle/IdleAnimation_Hand.png" alt="hand for idle">
+                  <div class="idle-graphic__text"></div>
+                </div>
+              }

@@ -1,42 +1,43 @@
 <div class="visualization__lens--touch-point"
-    [style.transform]="'translate('+Properties.TouchPosition.X+'px, '+Properties.TouchPosition.Y+'px)'">
+  [style.transform]="'translate('+Properties.TouchPosition.X+'px, '+Properties.TouchPosition.Y+'px)'">
 </div>
 
-<div class="visualization__lens--layers-container" 
-    [style.transform]="'translate('+Properties.LensOffset.X+'px, '+Properties.LensOffset.Y+'px)'"
-    [style.background-position]="Properties.CanvasOffset.X+'px '+Properties.CanvasOffset.Y+'px'"
-    [style.visibility]="ShowLensUI ? 'visible' : 'collapse'">
-    <div class="visualization__lens--layers"
-        [style.background-image]="Properties.LayerBackground"
-        [style.height]="2.5*Radius+'px'"
-        [style.width]="2.5*Radius+'px'"
-        [style.transform]="'translate(-'+1.25*Radius+'px, -'+1.25*Radius+'px)'"
-    ></div>
+<div class="visualization__lens--layers-container"
+  [style.transform]="'translate('+Properties.LensOffset.X+'px, '+Properties.LensOffset.Y+'px)'"
+  [style.background-position]="Properties.CanvasOffset.X+'px '+Properties.CanvasOffset.Y+'px'"
+  [style.visibility]="ShowLensUI ? 'visible' : 'collapse'">
+  <div class="visualization__lens--layers"
+    [style.background-image]="Properties.LayerBackground"
+    [style.height]="2.5*Radius+'px'"
+    [style.width]="2.5*Radius+'px'"
+    [style.transform]="'translate(-'+1.25*Radius+'px, -'+1.25*Radius+'px)'"
+  ></div>
 </div>
 
 <div class="visualization__lens"
-    [style.background-image]="Properties.LensImage"
-    [style.transform]="'translate('+Properties.LensOffset.X+'px, '+Properties.LensOffset.Y+'px)'"
-    [style.background-position]="Properties.CanvasOffset.X+'px '+Properties.CanvasOffset.Y+'px'"
-    [style.clip-path]="'circle('+Radius+'px)'">    
+  [style.background-image]="Properties.LensImage"
+  [style.transform]="'translate('+Properties.LensOffset.X+'px, '+Properties.LensOffset.Y+'px)'"
+  [style.background-position]="Properties.CanvasOffset.X+'px '+Properties.CanvasOffset.Y+'px'"
+  [style.clip-path]="'circle('+Radius+'px)'">
 </div>
 
 <div class="visualization__lens--border-container"
-    [style.transform]="'translate('+Properties.LensOffset.X+'px, '+Properties.LensOffset.Y+'px)'"
-    [style.background-position]="Properties.CanvasOffset.X+'px '+Properties.CanvasOffset.Y+'px'">    
-    <div class="visualization__lens--border"
-        [style.transform]="'translate(-'+Radius+'px, -'+Radius+'px)'"
-        [style.height]="2*Radius+'px'"
-        [style.width]="2*Radius+'px'">
-    </div>
+  [style.transform]="'translate('+Properties.LensOffset.X+'px, '+Properties.LensOffset.Y+'px)'"
+  [style.background-position]="Properties.CanvasOffset.X+'px '+Properties.CanvasOffset.Y+'px'">
+  <div class="visualization__lens--border"
+    [style.transform]="'translate(-'+Radius+'px, -'+Radius+'px)'"
+    [style.height]="2*Radius+'px'"
+    [style.width]="2*Radius+'px'">
+  </div>
 
-    <div class="visualization__lens--description" 
-        *ngIf="Properties.Description?.length ?? 0 > 0"
-        [style.transform]="'translate(-'+Radius+'px, -'+3*Radius+'px)'"
-        [style.height]="2*Radius+'px'"
-        >
-        <p
-          [style.transform]="'scale('+ LensScale +')'">{{Properties.Description}}</p>
-    </div>    
+  @if (Properties.Description?.length ?? 0 > 0) {
+    <div class="visualization__lens--description"
+      [style.transform]="'translate(-'+Radius+'px, -'+3*Radius+'px)'"
+      [style.height]="2*Radius+'px'"
+      >
+      <p
+      [style.transform]="'scale('+ LensScale +')'">{{Properties.Description}}</p>
+    </div>
+  }
 
 </div>

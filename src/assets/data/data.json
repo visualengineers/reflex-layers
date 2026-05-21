@@ -75,7 +75,7 @@
         { "id": 0, "file": "calibration2.ktx2" }
       ],
       "config": {
-        "interaction": 2,
+        "interaction": 1,
         "interpolateColor": false,
         "showLenseUI": false,
         "showLayerUI": true,
@@ -104,7 +104,7 @@
       ],
       "config": {
         "interaction": 0,
-        "interpolateColor": false,
+        "interpolateColor": true,
         "showLenseUI": false,
         "showLayerUI": true,
         "defaultLensMaskIdx": 1,

@@ -1,16 +1,14 @@
 import { Component,  Inject, OnInit, Renderer2 } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, Subscription } from 'rxjs';
-import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import { DepthImageService } from 'src/services/depth-image.service';
+import { Subscription } from 'rxjs';
 import { DepthImageServiceFacade } from 'src/services/depth-image.facade.service';
 
 @Component({
   selector: 'app-depth-image',
   templateUrl: './depth-image.component.html',
-  styleUrls: ['./depth-image.component.scss']
+  styleUrls: ['./depth-image.component.scss'],
+  standalone: true
 })
-export class DepthImageComponent implements OnInit {  
+export class DepthImageComponent implements OnInit {
   public imageData = '';
 
   private _depthImageSubscription? : Subscription;
@@ -24,7 +22,7 @@ export class DepthImageComponent implements OnInit {
     }
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
-  public ngOnInit(): void {    
+  public ngOnInit(): void {
     this._depthImageSubscription = this._depthImageService.Data.subscribe(
       imageData => this.imageData = imageData
     );
