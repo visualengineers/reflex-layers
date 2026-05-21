@@ -9,8 +9,7 @@ import { TextureRepositoryService } from './texture-repository.service';
 
 @Injectable()
 export class LayerLogicService implements LayerLogicServiceBase, OnDestroy {
-  private _touchPointSubscription?: Subscription;
-  private _textureSubscription?: Subscription;
+  private _subscriptions: Subscription = new Subscription();
 
   private _currentLayer$: Subject<Number> = new Subject<Number>();
   private _currentDeepestPoint$: Subject<TouchPoint[]> = new Subject<TouchPoint[]>();
@@ -29,46 +28,20 @@ export class LayerLogicService implements LayerLogicServiceBase, OnDestroy {
    private _isAtBottom = false;
 
   constructor(
-    private readonly _interactionService: InteractionService, 
+    private readonly _interactionService: InteractionService,
     private readonly _textureService: TextureRepositoryService,
     ) {
 
     this._interactionService.startStreaming();
 
-    this._touchPointSubscription = this._interactionService.Data.subscribe(points => {
-      if (!(Array.isArray(points) && points.length > 0)) {
-        this._depthInformation$.next([]);
-        this._currentDeepestPoint$.next([]);
-        return;
-      }
+    this._subscriptions.add(this._interactionService.Data.subscribe(points => {
+      this.processInteractionData(points);
+    }));
 
-      let filtered = points.filter(tp => (tp?.Position?.Z ?? 0) < 0);    
-
-      this._depthInformation = [];
-      this._deepestPoint = [];
-      
-      this._storedDepthInfo = [];
-
-
-      if (filtered.length > 0) {
-        this._deepestPoint = this.computeDeepestPoint(filtered);
-       
-        for (let pointIdx = 0; pointIdx < this._deepestPoint.length; pointIdx++) {
-          this.processPoint(pointIdx);
-        }
-      }
-      
-
-      this._currentDeepestPoint$.next(this._deepestPoint);
-      this._depthInformation$.next(this._depthInformation.reverse());
-    });
-
-    this._textureSubscription = this._textureService.NumLayers.subscribe((updatedNumber) => {
+    this._subscriptions.add(this._textureService.NumLayers.subscribe((updatedNumber) => {
         this._step = 1.0 / updatedNumber;
         this._numLayers = updatedNumber;
-    });
-
-    
+    }));
   }
 
   public getLayerChange(): Observable<Number> {
@@ -89,11 +62,35 @@ export class LayerLogicService implements LayerLogicServiceBase, OnDestroy {
 
   public ngOnDestroy(): void {
     this._interactionService.stopStreaming();
-    this._touchPointSubscription?.unsubscribe();
-    this._textureSubscription?.unsubscribe();
+    this._subscriptions?.unsubscribe();
   }
 
-  private processPoint(pointIdx: number): void {   
+  private processInteractionData(points: TouchPoint[]): void {
+    if (!(Array.isArray(points) && points.length > 0)) {
+      this._depthInformation$.next([]);
+      this._currentDeepestPoint$.next([]);
+      return;
+    }
+
+    const filtered = points.filter(tp => (tp?.Position?.Z ?? 0) < 0);
+
+    this._depthInformation = [];
+    this._deepestPoint = [];
+    this._storedDepthInfo = [];
+
+    if (filtered.length > 0) {
+      this._deepestPoint = this.computeDeepestPoint(filtered);
+
+      for (let pointIdx = 0; pointIdx < this._deepestPoint.length; pointIdx++) {
+        this.processPoint(pointIdx);
+      }
+    }
+
+    this._currentDeepestPoint$.next(this._deepestPoint);
+    this._depthInformation$.next(this._depthInformation.reverse());
+  }
+
+  private processPoint(pointIdx: number): void {
 
     let l: number = this.computeLayerIdx(this._deepestPoint[pointIdx]);
     if (l != this._lastLayer) {
@@ -138,11 +135,11 @@ export class LayerLogicService implements LayerLogicServiceBase, OnDestroy {
     // console.log(`z: ${Math.abs(point.posZ)}, d: ${inLayerDepth}, old_min: 0, old_max : ${this._step}, new_min: -0.5, new_max: 0.5`);
     inLayerDepth = scale(inLayerDepth, 0, this._step, -0.5, 0.5);
     inLayerDepth = Math.round(inLayerDepth * 1000) / 1000; // round to three numbers after .
-    return { 
-      layer: layer, 
-      inLayerDepth: inLayerDepth, 
+    return {
+      layer: layer,
+      inLayerDepth: inLayerDepth,
       deadzone: 0,
-      point: point 
+      point: point
     }
   }
 }
