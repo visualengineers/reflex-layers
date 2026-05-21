@@ -10,19 +10,18 @@ import { SettingsComponent } from './settings/settings.component';
 import { TextureBlendingComponent } from './texture-blending/texture-blending.component';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.html',
-  imports: [
-    RouterOutlet,
-    DepthImageComponent,
-    DepthLayerVisualizationComponent,
-    IdleScreenComponent,
-    LensVisualizationComponent,
-    SettingsComponent,
-    TextureBlendingComponent
-  ],
-  styleUrls: ['./app.scss'],
-  standalone: true
+    selector: 'app-root',
+    templateUrl: './app.html',
+    imports: [
+        RouterOutlet,
+        DepthImageComponent,
+        DepthLayerVisualizationComponent,
+        IdleScreenComponent,
+        LensVisualizationComponent,
+        SettingsComponent,
+        TextureBlendingComponent
+    ],
+    styleUrls: ['./app.scss']
 })
 export class App {
   public title = 'ReFlex - Layer Exploration';

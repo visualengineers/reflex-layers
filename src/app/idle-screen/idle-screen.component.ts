@@ -9,13 +9,12 @@ import { InteractionMetaphor } from 'src/shared/enum/interaction-metaphor';
 import { TextureLayer } from 'src/shared/interface/texture-layer';
 
 @Component({
-  selector: 'app-idle-screen',
-  templateUrl: './idle-screen.component.html',
-  styleUrls: ['./idle-screen.component.scss'],
-  imports: [
-    CommonModule
-  ],
-  standalone: true
+    selector: 'app-idle-screen',
+    templateUrl: './idle-screen.component.html',
+    styleUrls: ['./idle-screen.component.scss'],
+    imports: [
+        CommonModule
+    ]
 })
 export class IdleScreenComponent implements OnInit, OnDestroy {
 

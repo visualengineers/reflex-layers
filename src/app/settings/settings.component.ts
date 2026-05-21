@@ -16,14 +16,13 @@ import { TextureResource } from 'src/shared/interface/texture-resource';
 import { hexToRgb, RGBColor } from 'src/shared/util/util';
 
 @Component({
-  selector: 'app-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss'],
-  imports: [
-    CommonModule,
-    FormsModule
-  ],
-  standalone: true
+    selector: 'app-settings',
+    templateUrl: './settings.component.html',
+    styleUrls: ['./settings.component.scss'],
+    imports: [
+        CommonModule,
+        FormsModule
+    ]
 })
 export class SettingsComponent implements OnInit, OnDestroy {
 

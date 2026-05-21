@@ -9,13 +9,12 @@ import { InteractionMetaphor } from 'src/shared/enum/interaction-metaphor';
 import { DepthInformation } from 'src/shared/model/depth-information';
 
 @Component({
-  selector: 'app-depth-layer-visualization',
-  templateUrl: './depth-layer-visualization.component.html',
-  styleUrls: ['./depth-layer-visualization.component.scss'],
-  imports: [
-    CommonModule,
-  ],
-  standalone: true
+    selector: 'app-depth-layer-visualization',
+    templateUrl: './depth-layer-visualization.component.html',
+    styleUrls: ['./depth-layer-visualization.component.scss'],
+    imports: [
+        CommonModule,
+    ]
 })
 export class DepthLayerVisualizationComponent implements OnInit, OnDestroy {
 

@@ -15,14 +15,13 @@ import { CommonModule } from '@angular/common';
 import { LensComponent } from '../lens/lens.component';
 
 @Component({
-  selector: 'app-lens-visualization',
-  templateUrl: './lens-visualization.component.html',
-  styleUrls: ['./lens-visualization.component.scss'],
-  imports: [
-      CommonModule,
-      LensComponent
-    ],
-    standalone: true
+    selector: 'app-lens-visualization',
+    templateUrl: './lens-visualization.component.html',
+    styleUrls: ['./lens-visualization.component.scss'],
+    imports: [
+        CommonModule,
+        LensComponent
+    ]
 })
 export class LensVisualizationComponent implements OnInit {
 

@@ -3,13 +3,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { DefaultLensProperties, LensProperties } from 'src/shared/interface/lens-properties';
 
 @Component({
-  selector: 'app-lens',
-  templateUrl: './lens.component.html',
-  styleUrls: ['./lens.component.scss'],
-  imports: [
-    CommonModule
-  ],
-  standalone: true
+    selector: 'app-lens',
+    templateUrl: './lens.component.html',
+    styleUrls: ['./lens.component.scss'],
+    imports: [
+        CommonModule
+    ]
 })
 export class LensComponent implements OnInit {
 
