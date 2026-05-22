@@ -41,8 +41,9 @@ module.exports = function (config) {
       ChromeHeadlessNoGpu: {
         base: 'ChromeHeadless',
         flags: [
-          '--disable-gpu',
-          '--disable-gpu-compositing',
+          '--use-gl=swiftshader',
+          '--use-angle=swiftshader',
+          '--enable-unsafe-swiftshader',
           '--disable-dev-shm-usage',
           '--no-sandbox',
           '--remote-debugging-port=0'
