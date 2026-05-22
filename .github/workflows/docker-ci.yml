@@ -26,13 +26,16 @@ jobs:
 
       - name: Verify container serves HTML
         run: |
+          url="http://localhost:4300/"
+
           for attempt in {1..30}; do
             if [ "$(docker inspect --format='{{.State.Running}}' reflex-layers-ci)" != "true" ]; then
               docker logs reflex-layers-ci
               exit 1
             fi
 
-            status_code="$(curl --silent --output /tmp/reflex-layers.html --write-out '%{http_code}' http://localhost:4300/ || true)"
+            status_code="$(curl --silent --output /tmp/reflex-layers.html --write-out '%{http_code}' "$url" || true)"
+            echo "Attempt ${attempt}: curl ${url} returned HTTP ${status_code}"
 
             if [ "$status_code" = "200" ]; then
               sleep 2
@@ -49,7 +52,7 @@ jobs:
           done
 
           docker logs reflex-layers-ci
-          echo "Expected HTTP 200 from http://localhost:4300/, got ${status_code}."
+          echo "Expected HTTP 200 from ${url}, got ${status_code}."
           exit 1
 
       - name: Stop Docker container
