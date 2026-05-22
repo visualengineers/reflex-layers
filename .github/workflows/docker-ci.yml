@@ -1,0 +1,57 @@
+name: Docker CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  docker:
+    name: Build and smoke test Docker image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build --file docker/Dockerfile --tag reflex-layers:ci .
+
+      - name: Start Docker container
+        run: docker run --detach --name reflex-layers-ci --publish 4300:80 reflex-layers:ci
+
+      - name: Verify container serves HTML
+        run: |
+          for attempt in {1..30}; do
+            if [ "$(docker inspect --format='{{.State.Running}}' reflex-layers-ci)" != "true" ]; then
+              docker logs reflex-layers-ci
+              exit 1
+            fi
+
+            status_code="$(curl --silent --output /tmp/reflex-layers.html --write-out '%{http_code}' http://localhost:4300/ || true)"
+
+            if [ "$status_code" = "200" ]; then
+              sleep 2
+
+              if [ "$(docker inspect --format='{{.State.Running}}' reflex-layers-ci)" != "true" ]; then
+                docker logs reflex-layers-ci
+                exit 1
+              fi
+
+              exit 0
+            fi
+
+            sleep 2
+          done
+
+          docker logs reflex-layers-ci
+          echo "Expected HTTP 200 from http://localhost:4300/, got ${status_code}."
+          exit 1
+
+      - name: Stop Docker container
+        if: always()
+        run: docker rm --force reflex-layers-ci

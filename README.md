@@ -2,6 +2,7 @@
 
 [![Angular Version][angular-shield]][angular-url]  
 [![Tests][test-ci-shield]][test-ci-url]
+[![Docker Build][docker-ci-shield]][docker-ci-url]
 
 Application for Layer-based Interaction on Elastic Displays using ReFlex Framework.
 
@@ -394,12 +395,12 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 [angular-shield]: https://img.shields.io/badge/dynamic/json?color=brightgreen&label=angular&query=%24.dependencies[%27%40angular%2Fcore%27]&url=https%3A%2F%2Fraw.githubusercontent.com%2Fvisualengineers%2Fglyphspace%2Frefs%2Fheads%2Fmain%2Fpackage.json&style=for-the-badge
 [angular-url]: https://angular.io/
-[test-ci-shield]: https://github.com/visualengineers/reflex-layers/actions/workflows/test-ci.yml/badge.svg
-[test-ci-url]: https://github.com/visualengineers/reflex-layers/actions/workflows/test-ci.yml
 [atlas-europa]: https://www.atlas-europa.de/t01/territorien-staaten/t01-territorien-staaten.htm
 [ct-head]: https://www.codeproject.com/Articles/352270/Getting-started-with-Volume-Rendering
 [ct-head-demo]: https://threejs.org/examples/#webgl2_materials_texture2darray
 [ct-head-code]: https://github.com/mrdoob/three.js/blob/master/examples/webgl2_materials_texture2darray.html
+[docker-ci-shield]: https://github.com/visualengineers/reflex-layers/actions/workflows/docker-ci.yml/badge.svg
+[docker-ci-url]: https://github.com/visualengineers/reflex-layers/actions/workflows/docker-ci.yml
 [dresden-arcgis]: https://www.arcgis.com/apps/webappviewer3d/index.html?id=7ab78747a18c4e3faca004dc39070958
 [dresden-cardo]: https://stadtplan.dresden.de/?TH=UW_NO2_L
 [image-viewer-url]: https://github.com/kopaka1822/ImageViewer
@@ -410,3 +411,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 [nlm-url]: https://www.nlm.nih.gov/research/visible/visible_human.html
 [png-crush-url]: https://pmt.sourceforge.io/pngcrush/
 [powertoys-url]: https://github.com/microsoft/PowerToys
+[test-ci-shield]: https://github.com/visualengineers/reflex-layers/actions/workflows/test-ci.yml/badge.svg
+[test-ci-url]: https://github.com/visualengineers/reflex-layers/actions/workflows/test-ci.yml
