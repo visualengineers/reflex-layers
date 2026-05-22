@@ -77,7 +77,8 @@ jobs:
       - name: Create or update GitHub release
         shell: pwsh
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_TAG: ${{ steps.release.outputs.tag }}
           INSTALLER: ${{ steps.release.outputs.installer }}
         run: |
