@@ -46,7 +46,7 @@ jobs:
             throw "Release tag '$env:RELEASE_TAG' does not match the expected v*.*.* pattern."
           }
 
-          $packageVersion = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          $packageVersion = (Get-Content package.json -Raw | ConvertFrom-Json).build.buildVersion
           $tagVersion = $env:RELEASE_TAG -replace '^v', ''
 
           if ($packageVersion -ne $tagVersion) {
