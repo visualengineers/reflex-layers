@@ -12,7 +12,8 @@
     "test-ci": "ng test --watch=false --browsers=ChromeHeadlessNoGpu",
     "start:electron": "ng build --base-href ./ && electron .",
     "build:electron-win": "ng build --base-href ./ && electron-builder build --win",
-    "build:electron-mac": "ng build --base-href ./ && electron-builder build --mac --arm64"
+    "build:electron-mac": "ng build --base-href ./ && electron-builder build --mac --arm64",
+    "publish:electron-win": "ng build --base-href ./ && electron-builder build --win nsis --publish always"
   },
   "build": {
     "appId": "reflex.layers",
@@ -31,7 +32,8 @@
       "output": "release",
       "buildResources": "assets"
     },
-    "icon": "src/assets/icon/app_icon.png"
+    "icon": "src/assets/icon/app_icon.png",
+    "publish": ["github"]
   },
   "private": true,
   "dependencies": {
