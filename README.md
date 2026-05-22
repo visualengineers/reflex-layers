@@ -1,7 +1,7 @@
 # ReFlex Layers
 
-[![Angular Version][angular-shield]][angular-url]
-[![Test CI][test-ci-shield]][test-ci-url]
+[![Angular Version][angular-shield]][angular-url]  
+[![Tests][test-ci-shield]][test-ci-url]
 
 Application for Layer-based Interaction on Elastic Displays using ReFlex Framework.
 
