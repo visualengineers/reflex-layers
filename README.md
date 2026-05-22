@@ -3,6 +3,7 @@
 [![Angular Version][angular-shield]][angular-url]  
 [![Tests][test-ci-shield]][test-ci-url]
 [![Docker Build][docker-ci-shield]][docker-ci-url]
+[![Release][release-ci-shield]][release-ci-url]
 
 Application for Layer-based Interaction on Elastic Displays using ReFlex Framework.
 
@@ -411,5 +412,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 [nlm-url]: https://www.nlm.nih.gov/research/visible/visible_human.html
 [png-crush-url]: https://pmt.sourceforge.io/pngcrush/
 [powertoys-url]: https://github.com/microsoft/PowerToys
+[release-ci-shield]: https://github.com/visualengineers/reflex-layers/actions/workflows/release.yml/badge.svg
+[release-ci-url]: https://github.com/visualengineers/reflex-layers/actions/workflows/release.yml
 [test-ci-shield]: https://github.com/visualengineers/reflex-layers/actions/workflows/test-ci.yml/badge.svg
 [test-ci-url]: https://github.com/visualengineers/reflex-layers/actions/workflows/test-ci.yml
