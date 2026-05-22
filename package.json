@@ -11,7 +11,8 @@
     "test": "ng test",
     "test-ci": "ng test --watch=false --browsers=ChromeHeadlessNoGpu",
     "start:electron": "ng build --base-href ./ && electron .",
-    "build:electron-win": "ng build --base-href ./ && electron-builder build --win"
+    "build:electron-win": "ng build --base-href ./ && electron-builder build --win",
+    "build:electron-mac": "ng build --base-href ./ && electron-builder build --mac --arm64"
   },
   "build": {
     "appId": "reflex.layers",
