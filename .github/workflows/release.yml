@@ -2,11 +2,6 @@ name: Release
 
 on:
   workflow_dispatch:
-    inputs:
-      tag:
-        description: "Release tag. Defaults to v<package.json version>."
-        required: false
-        type: string
   release:
     types:
       - published
@@ -31,13 +26,6 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-
-      - name: Read package version
-        id: package
-        shell: pwsh
-        run: |
-          $package = Get-Content package.json -Raw | ConvertFrom-Json
-          "version=$($package.build.buildVersion)" >> $env:GITHUB_OUTPUT
 
       - name: Build Electron Windows installer
         env:
