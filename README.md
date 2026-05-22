@@ -1,4 +1,11 @@
-# reflex-layers
+# ReFlex Layers
+
+Layer-based Interaction on Elastic Displays using ReFlex Framework.
+
+Demonstrates different approaches for exploring volumetric data, including spatial volume slices based on the deformation and multiple interactive lenses.
+
+Contains basic sample data sets which can be modified to use the application with custom volumetric data, either based on image stacks or KTX Texture Arrays.
+
 
 <!-- omit in toc -->
 ## Table-of-contents
@@ -10,11 +17,12 @@
 5. [using powershell scripts](#using-powershell-scripts)
 6. [Sources for Additional Content](#sources-for-additional-content)
 7. [Electron](#electron)
-8. [Keyboard Shortcuts](#keyboard-shortcuts)
-9. [Key Bindings for loading Datasets](#key-bindings-for-loading-datasets)
-10. [Interaction Modes](#interaction-modes)
-11. [Project Setup and Development](#project-setup-and-development)
-12. [Known Issues](#known-issues)
+8. [Docker](#docker)
+9. [Keyboard Shortcuts](#keyboard-shortcuts)
+10. [Key Bindings for loading Datasets](#key-bindings-for-loading-datasets)
+11. [Interaction Modes](#interaction-modes)
+12. [Project Setup and Development](#project-setup-and-development)
+13. [Known Issues](#known-issues)
 
 ## User Interface
 
@@ -249,11 +257,11 @@ with the following optional parameters:
 ## Electron
 
 * application can be run as electron app using the command `npm run electron`
-* application can be packaged as electron app using  the command `npm run electron-build`
+* application can be packaged as electron app using the command `npm run electron-build`
 * resulting electron files are stored in the `release` folder
 * both commands start a production build before packaging
 * __IMPORTANT:__ Windows .exe files are limited to 2GB file size. As NSIS packages all resources into one large installer, this means that you have to be careful regarding the number of texture resources contained in the packaged installer.
-  if the package is too large, the application is correctly built and copiend to `win-unpacked` directory, but the installer file is corrupted and the build process fails with an error like this:
+  if the package is too large, the application is correctly built and copied to `win-unpacked` directory, but the installer file is corrupted and the build process fails with an error like this:
 
   ``` bash
     File: failed creating mmap of "D:\Projekte\ReFlex\reflex-layers\reflex-layers\release\reflex-layers-0.9.0-x64.nsis.7z"
@@ -264,6 +272,12 @@ with the following optional parameters:
     !include: error in script: "installSection.nsh" on line 66
     Error in script "<stdin>" on line 189 -- aborting creation process
   ```
+
+## Docker
+
+* application can also be run a docker container
+* start docker by `docker-compose -f docker/docker-compose.yml up --build` (add flag `-d` for detached run)
+* asset directory `src/assets` is mounted as docker volume, so data changes in this path should be available in the containerized application
 
 ## Keyboard Shortcuts
 
