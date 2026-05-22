@@ -1,6 +1,7 @@
 # ReFlex Layers
 
 [![Angular Version][angular-shield]][angular-url]
+[![Test CI][test-ci-shield]][test-ci-url]
 
 Application for Layer-based Interaction on Elastic Displays using ReFlex Framework.
 
@@ -393,6 +394,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 [angular-shield]: https://img.shields.io/badge/dynamic/json?color=brightgreen&label=angular&query=%24.dependencies[%27%40angular%2Fcore%27]&url=https%3A%2F%2Fraw.githubusercontent.com%2Fvisualengineers%2Fglyphspace%2Frefs%2Fheads%2Fmain%2Fpackage.json&style=for-the-badge
 [angular-url]: https://angular.io/
+[test-ci-shield]: https://github.com/visualengineers/reflex-layers/actions/workflows/test-ci.yml/badge.svg
+[test-ci-url]: https://github.com/visualengineers/reflex-layers/actions/workflows/test-ci.yml
 [atlas-europa]: https://www.atlas-europa.de/t01/territorien-staaten/t01-territorien-staaten.htm
 [ct-head]: https://www.codeproject.com/Articles/352270/Getting-started-with-Volume-Rendering
 [ct-head-demo]: https://threejs.org/examples/#webgl2_materials_texture2darray
