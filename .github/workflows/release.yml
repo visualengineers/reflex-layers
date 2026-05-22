@@ -1,0 +1,90 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag. Defaults to v<package.json version>."
+        required: false
+        type: string
+  release:
+    types:
+      - published
+
+permissions:
+  contents: write
+
+jobs:
+  electron-windows:
+    name: Build Windows installer and attach to release
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Read package version
+        id: package
+        shell: pwsh
+        run: |
+          $package = Get-Content package.json -Raw | ConvertFrom-Json
+          "version=$($package.version)" >> $env:GITHUB_OUTPUT
+
+      - name: Build Electron Windows installer
+        run: npm run build:electron-win
+
+      - name: Resolve release metadata
+        id: release
+        shell: pwsh
+        run: |
+          $version = "${{ steps.package.outputs.version }}"
+          $tag = "${{ github.event.release.tag_name }}"
+
+          if ([string]::IsNullOrWhiteSpace($tag)) {
+            $tag = "${{ inputs.tag }}"
+          }
+
+          if ([string]::IsNullOrWhiteSpace($tag)) {
+            $tag = "v$version"
+          }
+
+          $installer = "release/ReFlex Layers Setup $version.exe"
+          if (-not (Test-Path $installer)) {
+            Write-Error "Expected installer not found: $installer"
+            exit 1
+          }
+
+          "tag=$tag" >> $env:GITHUB_OUTPUT
+          "installer=$installer" >> $env:GITHUB_OUTPUT
+          "artifact_name=ReFlex Layers Setup $version" >> $env:GITHUB_OUTPUT
+
+      - name: Upload installer as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.release.outputs.artifact_name }}
+          path: ${{ steps.release.outputs.installer }}
+          if-no-files-found: error
+
+      - name: Create or update GitHub release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ steps.release.outputs.tag }}
+          INSTALLER: ${{ steps.release.outputs.installer }}
+        run: |
+          gh release view $env:RELEASE_TAG *> $null
+
+          if ($LASTEXITCODE -ne 0) {
+            gh release create $env:RELEASE_TAG --title $env:RELEASE_TAG --notes "ReFlex Layers $env:RELEASE_TAG"
+          }
+
+          gh release upload $env:RELEASE_TAG $env:INSTALLER --clobber
