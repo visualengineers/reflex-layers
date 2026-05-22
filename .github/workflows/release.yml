@@ -1,22 +1,32 @@
 name: Release
 
 on:
+  push:
+    tags:
+      - 'v*.*.*'
   workflow_dispatch:
-  release:
-    types:
-      - published
+    inputs:
+      tag:
+        description: Release tag to publish, e.g. v1.0.0
+        required: true
+        type: string
 
 permissions:
   contents: write
 
 jobs:
   electron-windows:
-    name: Build Windows installer and attach to release
+    name: Build Windows installer and attach to draft release
     runs-on: windows-latest
+    env:
+      RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref }}
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -26,6 +36,40 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Ensure draft GitHub release exists
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if ($env:RELEASE_TAG -notlike 'v*.*.*') {
+            throw "Release tag '$env:RELEASE_TAG' does not match the expected v*.*.* pattern."
+          }
+
+          $packageVersion = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          $tagVersion = $env:RELEASE_TAG -replace '^v', ''
+
+          if ($packageVersion -ne $tagVersion) {
+            throw "package.json version '$packageVersion' does not match release tag '$env:RELEASE_TAG'."
+          }
+
+          $releaseJson = gh release view $env:RELEASE_TAG --json isDraft,url 2>$null
+
+          if ($LASTEXITCODE -eq 0) {
+            $release = $releaseJson | ConvertFrom-Json
+
+            if (-not $release.isDraft) {
+              throw "Release '$env:RELEASE_TAG' already exists and is not a draft: $($release.url)"
+            }
+
+            Write-Host "Draft release '$env:RELEASE_TAG' already exists: $($release.url)"
+            exit 0
+          }
+
+          gh release create $env:RELEASE_TAG `
+            --draft `
+            --title $env:RELEASE_TAG `
+            --notes "Draft release for $env:RELEASE_TAG. Electron artifacts are uploaded by the release workflow."
 
       - name: Build Electron Windows installer
         env:

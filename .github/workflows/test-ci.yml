@@ -2,14 +2,13 @@ name: Test CI
 
 on:
   push:
-  pull_request:
 
 permissions:
   contents: read
 
 jobs:
   test:
-    name: npm run test-ci
+    name: run Angular test suite
     runs-on: ubuntu-latest
 
     steps:
