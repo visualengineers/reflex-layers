@@ -37,7 +37,7 @@ jobs:
         shell: pwsh
         run: |
           $package = Get-Content package.json -Raw | ConvertFrom-Json
-          "version=$($package.version)" >> $env:GITHUB_OUTPUT
+          "version=$($package.build.buildVersion)" >> $env:GITHUB_OUTPUT
 
       - name: Build Electron Windows installer
         run: npm run build:electron-win
