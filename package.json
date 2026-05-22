@@ -1,6 +1,6 @@
 {
   "name": "@reflex/layers",
-  "version": "0.9.9",
+  "version": "1.0.0",
   "author": "Mathias Müller",
   "main": "main.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "appId": "reflex.layers",
     "productName": "ReFlex Layers",
     "copyright": "Copyright © 2023-2026 HTW Dresden",
-    "buildVersion": "0.9.9",
+    "buildVersion": "1.0.0",
     "files": [
       "main.js",
       "dist/browser/**/*"
