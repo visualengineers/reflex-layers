@@ -48,6 +48,6 @@ Thumbs.db
 /src/assets/textures/*
 !/src/assets/textures/Calibration
 !/src/assets/textures/Calibration2
-!/src/assets/textures/Calibration_ktx
+!/src/assets/textures/Calibration2_ktx
 !/src/assets/textures/Common
 !/src/assets/textures/DoF_LNdW
